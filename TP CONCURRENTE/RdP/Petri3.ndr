@@ -1,0 +1,124 @@
+t 360.0 155.0 t21 0 w n
+t 360.0 610.0 t24 0 w n
+p 360.0 540.0 p23 0 e
+t 360.0 445.0 t23 0 w n
+p 360.0 370.0 p22 0 e
+t 360.0 290.0 t22 0 w n
+p 360.0 225.0 p21 0 e
+p 470.0 420.0 m2 1 n
+t 565.0 150.0 t11 0 w n
+t 560.0 295.0 t13 0 w n
+p 560.0 360.0 p14 0 w
+t 560.0 440.0 t15 0 w n
+p 560.0 515.0 p16 0 e
+t 560.0 595.0 t17 0 w n
+p 475.0 245.0 m1 1 n
+t 665.0 580.0 t19 0 w n
+p 660.0 510.0 p18 0 se
+p 655.0 300.0 r2 1 se
+p 660.0 150.0 p11 0 ne
+t 760.0 140.0 t12 0 w n
+p 755.0 205.0 p13 0 w
+t 765.0 270.0 t14 0 w n
+p 765.0 340.0 p15 0 w
+t 765.0 410.0 t16 0 w n
+p 765.0 480.0 p17 0 w
+t 765.0 545.0 t18 0 w n
+p 845.0 100.0 r1 1 n
+p 870.0 205.0 m3 1 n
+p 870.0 470.0 m4 1 n
+p 875.0 635.0 r3 1 n
+p 625.0 645.0 Pieza_A 5 w
+p 260.0 390.0 Pieza_B 5 n
+n 650.0 185.0 n24 1 {En R1}
+t 630.0 75.0 t10 0 w n
+n 790.0 140.0 n26 1 {Espera M3}
+n 790.0 205.0 n18 1 {En M3}
+n 795.0 270.0 n19 1 {Espera R2}
+n 800.0 340.0 n20 1 {En R2}
+n 800.0 410.0 n21 1 {Espera M4}
+n 800.0 480.0 n22 1 {En M4}
+n 795.0 545.0 n23 1 {Espera R3}
+n 640.0 475.0 n27 1 {En R3}
+n 695.0 580.0 n28 1 {Output 1}
+n 475.0 295.0 n31 1 {Espera R2}
+n 500.0 220.0 n30 1 {En M1}
+n 505.0 385.0 n32 1 {En R2}
+n 475.0 455.0 n33 1 {Espera M2}
+n 500.0 515.0 n34 1 {En M2}
+n 475.0 595.0 n35 1 {Espera R3}
+n 330.0 125.0 n36 1 {Imput 2\\nEspera R2}
+n 300.0 225.0 n37 1 {En R2}
+n 280.0 290.0 n38 1 {Espera M2}
+n 300.0 370.0 n39 1 {En M2}
+n 285.0 445.0 n40 1 {Espera R2}
+n 300.0 540.0 n41 1 {En R2}
+n 290.0 610.0 n42 1 {Output 2}
+p 130.0 380.0 p0 1 n
+n 475.0 150.0 n29 1 {Espera M1}
+n 545.0 110.0 n0 1 {Alt "1"}
+n 750.0 110.0 n1 1 {Alt "2"}
+p 560.0 220.0 p12 0 e
+n 595.0 40.0 n16 1 {Imput 1\\nEspera R1}
+p 460.0 340.0 p1 1 n
+e t15 p1 1 n
+e t23 p1 1 n
+e p1 t13 1 n
+e p1 t22 1 n
+e t24 p0 1 n
+e p0 t21 1 n
+e t19 r3 1 n
+e r3 t17 1 n
+e r3 t18 1 n
+e t18 m4 1 n
+e m4 t16 1 n
+e t14 m3 1 n
+e m3 t12 1 n
+e r1 t10 1 n
+e t12 r1 1 n
+e t11 r1 1 n
+e p11 t12 1 n
+e p11 t11 1 n
+e r2 t14 1 n
+e t16 r2 1 n
+e t18 p18 1 n
+e p17 t18 1 n
+e t16 p17 1 n
+e p15 t16 1 n
+e t14 p15 1 n
+e p13 t14 1 n
+e t12 p13 1 n
+e t10 p11 1 n
+e Pieza_A 0.5090999497 594.7342794 t10 0.4938323002 619.2173058 1 n
+e r2 t21 1 n
+e r2 t13 1 n
+e t22 r2 1 n
+e r2 t23 1 n
+e t15 r2 1 n
+e t24 r2 1 n
+e t17 p18 1 n
+e t19 Pieza_A 1 n
+e p18 t19 1 n
+e Pieza_B t21 1 n
+e t21 p21 1 n
+e p21 t22 1 n
+e t22 p22 1 n
+e p22 t23 1 n
+e t23 p23 1 n
+e p23 t24 1 n
+e t24 Pieza_B 1 n
+e m2 t22 1 n
+e t23 m2 1 n
+e t11 p12 1 n
+e p12 t13 1 n
+e t13 p14 1 n
+e p14 t15 1 n
+e t15 p16 1 n
+e p16 t17 1 n
+e t17 m2 1 n
+e m2 t15 1 n
+e t13 m1 1 n
+e m1 t11 1 n
+h Petri3
+
+

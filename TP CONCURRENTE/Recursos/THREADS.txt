@@ -1,0 +1,7 @@
+Un hilo para la pieza B, ya que sólo se puede hacer una por vez porque usa 
+el mismo robot (2) para todo el proceso.
+Un hilo para la pieza C que es como el ejemplo del canal marítimo con la alt 2 de
+la pieza A.
+Y 4 hilos para la pieza A, 1 para el imput, otro para el output, y uno para cada 
+alternativa. Ya que en el test comprobamos que puede haber una pieza en la plaza
+p16, otra en p18 y otra en p13.
