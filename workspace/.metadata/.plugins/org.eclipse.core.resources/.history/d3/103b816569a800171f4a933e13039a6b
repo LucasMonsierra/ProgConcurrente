@@ -56,9 +56,6 @@ public class GestorMonitor {
 					for (int i = 0 ; i < m.length ; i++) {System.out.print(m[i]+ " ");}
 					System.out.print("\n\n");
 /*############################################################*/
-/*############################################################*/
-/*############################################################*/
-					
 					if (c > 0) {
 						colas.liberarHilo(politicas.cual(m));
 						break hilo; 

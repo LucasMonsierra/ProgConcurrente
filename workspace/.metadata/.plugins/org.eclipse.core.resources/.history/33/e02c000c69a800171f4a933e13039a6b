@@ -28,22 +28,14 @@ public class Main {
 		Thread h1 = new Thread(la1);
 		Thread h2 = new Thread(la2);
 		Thread h3 = new Thread(la3);
-		Thread h4 = new Thread(la4);
-		Thread h5 = new Thread(la5);
-		Thread h6 = new Thread(la6);
-		Thread h7 = new Thread(lb);
-		Thread h8 = new Thread(lc1);
-		Thread h9 = new Thread(lc2);
+		Thread h4 = new Thread(lb);
+		Thread h5 = new Thread(lc);
 		
 		h1.start();
 		h2.start();
 		h3.start();
 		h4.start();
 		h5.start();
-		h6.start();
-		h7.start();
-		h8.start();
-		h9.start();
 	}
 
 }
