@@ -1,4 +1,4 @@
-package matriz;
+package archivos;
 
 public class Lector {
 
