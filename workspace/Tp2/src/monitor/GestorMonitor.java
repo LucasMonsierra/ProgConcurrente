@@ -10,7 +10,7 @@ public class GestorMonitor {
 	private Politicas politicas;
 	private boolean k;
 	private int[] m;
-	private int i;
+	private int disp;
 	
 	public GestorMonitor() {
 		mutex = new Semaphore(1,true);
@@ -18,7 +18,7 @@ public class GestorMonitor {
 		colas = new Colas();
 		politicas = new Politicas();
 		m = new int[RdP.TRANS];
-		i = 0;
+		disp = 0;
 	}
 	
 	public void dispararTransicion(int t) {
@@ -34,7 +34,7 @@ public class GestorMonitor {
 				k = rdp.shoot(t);
 				
 				if (k == true) {
-					System.out.print(i++ + ". T: " + t +"\n");
+					System.out.print(disp++ + ". T: " + t +"\n");
 					int[] vs = rdp.getSencib();
 					int[] vc = colas.quienesEstan();
 					
@@ -43,7 +43,19 @@ public class GestorMonitor {
 						m[i] = vs[i]*vc[i];
 						if (m[i] == 1) { c++; }
 					}
-					
+/*############################################################*/
+/*##############    IMPRESIONES POR PANTALLA	##############*/
+/*############################################################*/
+					System.out.print("SENCIB:");
+					for (int i = 0 ; i < m.length ; i++) {System.out.print(vs[i]+ " ");}
+					System.out.print("\n");
+					System.out.print("ENCOLA:");
+					for (int i = 0 ; i < m.length ; i++) {System.out.print(vc[i]+ " ");}
+					System.out.print("\n");
+					System.out.print("VECTOM:");
+					for (int i = 0 ; i < m.length ; i++) {System.out.print(m[i]+ " ");}
+					System.out.print("\n");
+/*############################################################*/
 					if (c > 0) {
 						colas.liberarHilo(politicas.cual(m));
 						break hilo; 
