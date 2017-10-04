@@ -1,7 +1,6 @@
 package monitor;
 
 import archivos.Escritor;
-import java.util.Arrays;
 
 public class RdP {
 	
@@ -81,6 +80,6 @@ public class RdP {
 	}
 	
 	public void imprimirMarcado () {
-		Escritor.getInstance().imprimir("Marcado", Arrays.toString(Marcado));
+		Escritor.getInstance().imprimir("Marcado", Marcado.toString());
 	}
 }

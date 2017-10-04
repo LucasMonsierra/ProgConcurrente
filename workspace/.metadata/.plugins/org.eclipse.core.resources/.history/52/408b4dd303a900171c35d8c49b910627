@@ -12,13 +12,12 @@ public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 	
-		int[] M = new int[] {1, 2, 3, 4};
-		
-		System.out.print(Arrays.toString(M));
+		int[] M = {1, 2, 3, 4};
 		
 		
 		
 		
+	}
 		/*String sUbicacion = System.getProperty("user.home") + "\\log\\";
 		
 		System.out.print(sUbicacion);*/

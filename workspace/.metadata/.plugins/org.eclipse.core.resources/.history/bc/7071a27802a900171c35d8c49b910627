@@ -1,7 +1,6 @@
 package monitor;
 
 import archivos.Escritor;
-import java.util.Arrays;
 
 public class RdP {
 	
@@ -76,11 +75,11 @@ public class RdP {
 	}
 	
 	public boolean shoot(int t) {
-		if (isSencib(t)) { newState(t); imprimirMarcado(); return true; }
-		else { imprimirMarcado(); return false; }
+		if (isSencib(t)) { newState(t); return true; }
+		else { return false; }
 	}
 	
 	public void imprimirMarcado () {
-		Escritor.getInstance().imprimir("Marcado", Arrays.toString(Marcado));
+		Escritor.getInstance().imprimir("Marcado", Marcado.toString());
 	}
 }

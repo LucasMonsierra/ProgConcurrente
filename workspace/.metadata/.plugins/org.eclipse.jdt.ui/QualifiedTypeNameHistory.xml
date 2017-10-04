@@ -2,4 +2,5 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="archivos.Escritor"/>
 <fullyQualifiedTypeName name="org.apache.commons.io.FileUtils"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
 </qualifiedTypeNameHistroy>
