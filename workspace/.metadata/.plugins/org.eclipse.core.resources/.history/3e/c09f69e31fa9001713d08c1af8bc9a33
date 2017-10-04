@@ -2,6 +2,7 @@ package archivos;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.logging.*;
 
 public class Lector {
 	
@@ -28,16 +29,11 @@ public class Lector {
 		in.close();
 		
 		matriz = new int[filas][columnas];
-		in = new Scanner(inFile);
 		
-		for ( int j = 0 ; j < filas ; j++ ) {
-		//while (in.hasNextLine()) {
+		while (in.hasNextLine()) {
 			String[] currentLine = in.nextLine().trim().split("\\s+");
-			for ( int i = 0 ; i < currentLine.length ; i ++ ) {
-				matriz[j][i] = Integer.parseInt(currentLine[i]);
-			}
+			for ( int i = )
 		}
-		in.close();
-		return matriz;
+		return null;
 	}
 }

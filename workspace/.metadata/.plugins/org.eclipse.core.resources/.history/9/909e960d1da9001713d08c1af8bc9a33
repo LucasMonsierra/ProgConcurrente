@@ -1,0 +1,12 @@
+package archivos;
+
+public class Lector {
+
+	
+	
+	
+	public int[][] leerLog(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
