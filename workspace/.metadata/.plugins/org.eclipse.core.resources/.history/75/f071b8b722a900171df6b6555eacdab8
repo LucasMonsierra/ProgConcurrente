@@ -2,10 +2,8 @@ package test;
 
 import archivos.Lector;
 import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-
 
 public class TestPInvariantes {
 
@@ -13,10 +11,7 @@ public class TestPInvariantes {
 	public static int[][] marcados;
 	
 	@BeforeClass public static void test() throws Exception {
-		Thread.sleep(5000);
 		marcados = lector.leerLog("Marcado.txt");
-		Thread.sleep(1000);
-		
 	}
 	
 	@Test
