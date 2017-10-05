@@ -1,0 +1,30 @@
+package test;
+
+import archivos.Lector;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Assert;
+
+
+public class TestPInvariantes {
+
+	private static Lector lector = new Lector();
+	public static int[][] marcados;
+	
+	@BeforeClass public static void test() throws Exception {
+		Thread.sleep(5000);
+		marcados = lector.leerLog("Marcado.txt");
+		Thread.sleep(1000);		
+	}
+	
+	@Test // M(M1) + M(P1) = 1
+	public void invariante1() {
+		for ( int i = 0 ; i < marcados.length ; i++ ) {
+			int expecteds = marcados[i][0] + marcados [i][8];
+			Assert.assertArrayEquals(expecteds, 1);			
+		}
+	}
+}

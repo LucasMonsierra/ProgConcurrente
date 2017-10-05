@@ -4,6 +4,8 @@ import archivos.Lector;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 
 
@@ -15,24 +17,17 @@ public class TestPInvariantes {
 	@BeforeClass public static void test() throws Exception {
 		Thread.sleep(5000);
 		marcados = lector.leerLog("Marcado.txt");
-		Thread.sleep(1000);
-		
-		/*for ( int i = 0 ; i < marcados.length ; i++ ) {
-			for (int j = 0 ; j < marcados[0].length ; j++ ) {
-				System.out.print(marcados[i][j]);
-			}
-			System.out.print("\n");
-		}*/
+		Thread.sleep(1000);		
 	}
 	
-	@Test // M(M1) + M(P13) = 1
+	@Test // M(M1) + M(P1) = 1
 	public void invariante1() {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
-			int expecteds = marcados[i][0] + marcados [i][7];
+			int expecteds = marcados[i][0] + marcados [i][8];
 			Assert.assertEquals(expecteds, 1);			
 		}
 	}
-	/*
+	
 	@Test // M(M2) + M(P10) + M(P5) = 1
 	public void invariante2 () {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
@@ -127,5 +122,5 @@ public class TestPInvariantes {
 			int expecteds = marcados[i][12] + marcados [i][23] + marcados[i][28];
 			Assert.assertEquals(expecteds, 1);			
 		}
-	}*/
+	}
 }

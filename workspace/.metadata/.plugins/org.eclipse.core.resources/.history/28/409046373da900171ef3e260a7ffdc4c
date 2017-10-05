@@ -32,7 +32,7 @@ public class TestPInvariantes {
 			Assert.assertEquals(expecteds, 1);			
 		}
 	}
-	/*
+	
 	@Test // M(M2) + M(P10) + M(P5) = 1
 	public void invariante2 () {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
@@ -127,5 +127,5 @@ public class TestPInvariantes {
 			int expecteds = marcados[i][12] + marcados [i][23] + marcados[i][28];
 			Assert.assertEquals(expecteds, 1);			
 		}
-	}*/
+	}
 }

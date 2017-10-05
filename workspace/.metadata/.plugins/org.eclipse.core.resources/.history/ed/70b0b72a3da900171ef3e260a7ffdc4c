@@ -80,6 +80,9 @@ public class RdP {
 	}
 	
 	public void imprimirMarcado () {
+		/*for ( int i = 0 ; i < Marcado.length ; i++ )
+			System.out.print(Marcado[i]);
+		System.out.print("\n");*/
 		Escritor.getInstance().imprimir("Marcado", Arrays.toString(Marcado));
 	}
 }
