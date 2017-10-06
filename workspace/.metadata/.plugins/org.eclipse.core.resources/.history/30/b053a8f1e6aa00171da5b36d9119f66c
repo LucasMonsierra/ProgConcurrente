@@ -49,9 +49,9 @@ public class Main {
 		h9.start();
 		
 		try {
-			Thread.sleep(20000);
-			Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados());
-			System.out.print("Done!");
+			Thread.sleep(5000);
+			//Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados());
+			System.out.print("holis");
 		} 
 		catch (InterruptedException e) {
 			e.printStackTrace(); 

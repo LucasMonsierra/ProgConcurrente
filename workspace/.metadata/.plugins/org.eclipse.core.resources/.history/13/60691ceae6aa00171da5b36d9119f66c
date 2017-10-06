@@ -34,9 +34,15 @@ public class Escritor {
 		return esc;
 	}
 	
-	// GUARDA EN UN STRING EL LOS DISTINTOS MARCADOS LIMPIOS DE CARACTERES NO DESEADOS
+	
+	// ELIMINA DE UN STRING LOS CARACTERES NO DESEADOS ([],) Y AGREGA UNA NUEVA LINEA AL FINAL
+	public String limpiar(String texto) {
+		return CharMatcher.anyOf("[],").removeFrom(texto).concat("\n");
+	}
+	
+	// GUARDA EN UN STRING EL LOS DISTINTOS MARCADOS LIMPIOS
 	public void guardar(String texto) {
-		marcados = marcados.concat(CharMatcher.anyOf("[],").removeFrom(texto) + "\r\n");
+		marcados.concat(limpiar(texto));
 	}
 	
 	// GUARDA EN UN ARCHIVO EL STRING QUE TIENE TODOS LOS MARCADOS SIN CARACTERES ESPECIALES

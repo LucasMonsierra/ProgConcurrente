@@ -49,7 +49,7 @@ public class Main {
 		h9.start();
 		
 		try {
-			Thread.sleep(20000);
+			Thread.sleep(3000);
 			Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados());
 			System.out.print("Done!");
 		} 
