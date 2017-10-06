@@ -34,7 +34,7 @@ public class GestorMonitor {
 				k = rdp.shoot(t);
 				
 				if (k == true) {
-					System.out.print(disp++ + ". T: " + t +"\n");
+					//System.out.print(disp++ + ". T: " + t +"\n");
 					int[] vs = rdp.getSencib();
 					int[] vc = colas.quienesEstan();
 					
@@ -46,7 +46,7 @@ public class GestorMonitor {
 /*############################################################*/
 /*##############    IMPRESIONES POR PANTALLA	##############*/
 /*############################################################*/
-					System.out.print("SENCIB:");
+/*					System.out.print("SENCIB:");
 					for (int i = 0 ; i < m.length ; i++) {System.out.print(vs[i]+ " ");}
 					System.out.print("\n");
 					System.out.print("ENCOLA:");
@@ -66,9 +66,9 @@ public class GestorMonitor {
 					else { k = false; }
 				}
 				else {
-					System.out.print("NoSenc: " + t + "\n");
+					//System.out.print("NoSenc: " + t + "\n");
 					mutex.release();
-					System.out.print("Encolo: " + t + "\n");
+					//System.out.print("Encolo: " + t + "\n");
 					colas.adquirirCola(t);
 				}
 			}

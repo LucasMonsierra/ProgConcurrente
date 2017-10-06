@@ -57,7 +57,7 @@ public class TestPInvariantes {
 		}
 	}
 	
-	@Test // M(P10) + M(P11) + M(P12) + M(P13) + M(P14) + M(P15) + M(P16) + M(P17) + M(P18) = 6
+	@Test // M(P10) + M(P11) + M(P12) + M(P13) + M(P14) + M(P15) + M(P16) + M(P17) + M(P18) = 1
 	public void invariante5() {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
 			int expecteds = marcados[i][4] + marcados [i][5] + marcados[i][6] + marcados [i][7] + marcados [i][8] + marcados [i][9] + marcados [i][10] + marcados [i][11] + marcados[i][12];
@@ -72,52 +72,60 @@ public class TestPInvariantes {
 			Assert.assertEquals(expecteds, 1);			
 		}
 	}
-	
-	@Test // M(P30) + M(P31) + M(P32) + M(P33) + M(P34) + M(P35) = 2
+	/*
+	@Test // M(P03) + M(P10) + M(P3) = 1
 	public void invariante7() {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
-			int expecteds = marcados[i][17] + marcados [i][18] + marcados[i][19] + marcados [i][20] + marcados [i][21] + marcados [i][22];
-			Assert.assertEquals(expecteds, 2);			
+			int expecteds = marcados[i][7] + marcados [i][9] + marcados[i][19];
+			Assert.assertEquals(expecteds, 1);			
 		}
 	}
 	
-	@Test // M(P11) + M(P35) + M(R1) = 1
+	@Test // M(P10) + M(P11) + M(P12) + M(P9) = 1
 	public void invariante8() {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
-			int expecteds = marcados[i][5] + marcados [i][22] + marcados[i][23];
+			int expecteds = marcados[i][9] + marcados [i][10] + marcados[i][11] + marcados[i][25];
 			Assert.assertEquals(expecteds, 1);			
 		}
 	}
 	
-	@Test // M(P14) + M(P15) + M(P21) + M(P23) + M(P33) + M(R2) = 1
+	@Test // M(P13) + M(P14) + M(P15) + M(P16) + M(P17) + M(P18) = 1
 	public void invariante9() {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
-			int expecteds = marcados[i][8] + marcados [i][9] + marcados[i][14] + marcados[i][16] + marcados[i][20] + marcados[i][24];
+			int expecteds = marcados[i][12] + marcados [i][13] + marcados[i][14] + marcados[i][15] + marcados[i][16] + marcados[i][17];
 			Assert.assertEquals(expecteds, 1);			
 		}
 	}
 	
-	@Test // M(P18) + M(P31) + M(R3) = 1
+	@Test // M(P0) + M(P1) + M(P2) + M(P3) + M(P4) + M(P5) + M(P6) + M(P7) + M(P8) = 3
 	public void invariante10() {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
-			int expecteds = marcados[i][12] + marcados [i][18] + marcados[i][25];
-			Assert.assertEquals(expecteds, 1);			
+			int expecteds = marcados[i][4] + marcados [i][9] + marcados[i][18] + marcados[i][19] + marcados[i][20] + marcados[i][21] + marcados[i][22] + marcados[i][23] + marcados[i][24];
+			Assert.assertEquals(expecteds, 3);			
 		}
 	}
 	
-	@Test // M(P15) + M(P22) + M(X1) = 1
+	@Test // M(P0) + M(P17) + M(R1) = 1
 	public void invariante11() {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
-			int expecteds = marcados[i][9] + marcados [i][15] + marcados[i][26];
+			int expecteds = marcados[i][4] + marcados [i][16] + marcados[i][26];
 			Assert.assertEquals(expecteds, 1);			
 		}
 	}
 	
-	@Test // M(P12) + M(P14) + M(P16) + M(P31) + M(P32) + M(P33) + M(P34) + M(X2) = 1
+	@Test // M(P11) + M(P15) + M(P3) + M(P4) + M(P9) + M(R2) = 1
 	public void invariante12() {
 		for ( int i = 0 ; i < marcados.length ; i++ ) {
-			int expecteds = marcados[i][6] + marcados [i][8] + marcados[i][10] + marcados [i][18] + marcados [i][19] + marcados [i][20] + marcados [i][21] + marcados [i][27];
+			int expecteds = marcados[i][10] + marcados [i][14] + marcados[i][19] + marcados [i][20] + marcados [i][25] + marcados [i][27];
 			Assert.assertEquals(expecteds, 1);			
 		}
 	}
+	
+	@Test // M(P13) + M(P7) + M(R3) = 1
+	public void invariante13() {
+		for ( int i = 0 ; i < marcados.length ; i++ ) {
+			int expecteds = marcados[i][12] + marcados [i][23] + marcados[i][28];
+			Assert.assertEquals(expecteds, 1);			
+		}
+	}*/
 }

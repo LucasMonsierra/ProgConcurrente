@@ -34,7 +34,7 @@ public class GestorMonitor {
 				k = rdp.shoot(t);
 				
 				if (k == true) {
-					System.out.print(disp++ + ". T: " + t +"\n");
+					//System.out.print(disp++ + ". T: " + t +"\n");
 					int[] vs = rdp.getSencib();
 					int[] vc = colas.quienesEstan();
 					
