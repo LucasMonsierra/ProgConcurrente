@@ -46,7 +46,7 @@ public class GestorMonitor {
 /*############################################################*/
 /*##############    IMPRESIONES POR PANTALLA	##############*/
 /*############################################################*/
-					System.out.print("SENCIB:");
+/*					System.out.print("SENCIB:");
 					for (int i = 0 ; i < m.length ; i++) {System.out.print(vs[i]+ " ");}
 					System.out.print("\n");
 					System.out.print("ENCOLA:");

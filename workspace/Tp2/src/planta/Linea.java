@@ -15,7 +15,7 @@ public class Linea implements Runnable{
 	
 	@Override
 	public void run() {
-		for(/*;;){//*/int j=0;j<500;j++) {
+		for(/*;;){//*/int j=0;j<50;j++) {
 			int i = 0;
 			while (i < secuencia.length) {
 				gm.dispararTransicion(secuencia[i]);

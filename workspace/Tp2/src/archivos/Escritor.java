@@ -14,11 +14,12 @@ import org.apache.commons.io.FileUtils;
 public class Escritor {
 	
 	private static Escritor esc = null;
-	//private String sArchivo = "System.txt";
 	private String sUbicacion = System.getProperty("user.home") + "\\Log\\";
+	public String marcados;
 	
 	private Escritor() {
 		File file = new File(sUbicacion);
+		marcados = "";
 		try {
 			FileUtils.cleanDirectory(file);
 		} catch (IOException e) {
@@ -33,19 +34,34 @@ public class Escritor {
 		return esc;
 	}
 	
-	// GUARDA EN UN ARCHIVO CON EL NOMBRE QUE SE LE PASA EL TEXTO QUE SE DESEE
-	public void imprimir(String sArchivo, String sTexto) {
-		File fichero = new File(sUbicacion + sArchivo + ".txt");
-		String limpio = CharMatcher.anyOf("[],").removeFrom(sTexto);
+	
+	// ELIMINA DE UN STRING LOS CARACTERES NO DESEADOS ([],) Y AGREGA UNA NUEVA LINEA AL FINAL
+	public String limpiar(String texto) {
+		return CharMatcher.anyOf("[],").removeFrom(texto).concat("\n");
+	}
+	
+	// GUARDA EN UN STRING EL LOS DISTINTOS MARCADOS LIMPIOS
+	public void guardar(String texto) {
+		marcados.concat(limpiar(texto));
+	}
+	
+	// GUARDA EN UN ARCHIVO EL STRING QUE TIENE TODOS LOS MARCADOS SIN CARACTERES ESPECIALES
+	public void imprimir(String texto) {
+		File fichero = new File(sUbicacion + "Marcados.txt");
 		BufferedWriter bw = null;
 		try {
 			bw = new BufferedWriter(new FileWriter(fichero, true));
-			bw.write(limpio);
+			bw.write(texto);
 			bw.newLine();
 			bw.close();
 		} catch (IOException ex) {
 			System.out.println(ex);
 			JOptionPane.showMessageDialog(null, ex, "Log: ", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	//RETORNA EL STRING QUE CONTIENE TODOS LOS MARCADOS
+	public String getMarcados () {
+		return marcados;
 	}
 }
