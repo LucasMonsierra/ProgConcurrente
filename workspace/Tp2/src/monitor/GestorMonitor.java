@@ -2,6 +2,8 @@ package monitor;
 
 import java.util.concurrent.Semaphore;
 
+import archivos.Matriz;
+
 public class GestorMonitor {
 	
 	private Semaphore mutex;
@@ -9,15 +11,15 @@ public class GestorMonitor {
 	private Colas colas;
 	private Politicas politicas;
 	private boolean k;
-	private int[] m;
+	private Matriz m;
 	private int disp;
 	
 	public GestorMonitor() {
 		mutex = new Semaphore(1,true);
 		rdp = new RdP();
-		colas = new Colas();
+		colas = new Colas(rdp.getTrans());
 		politicas = new Politicas();
-		m = new int[RdP.TRANS];
+		m = new Matriz(1, rdp.getTrans());
 		disp = 0;
 	}
 	
@@ -35,14 +37,17 @@ public class GestorMonitor {
 				
 				if (k == true) {
 					System.out.print(disp++ + ". T: " + t +"\n");
-					int[] vs = rdp.getSencib();
-					int[] vc = colas.quienesEstan();
+					Matriz vs = rdp.getSencib();
+					Matriz vc = colas.quienesEstan();
 					
-					int c = 0;
-					for (int i = 0 ; i < m.length ; i++) {
-						m[i] = vs[i]*vc[i];
-						if (m[i] == 1) { c++; }
+					m = vs.and(vc);
+					
+					if (!m.esCero()) {
+						colas.liberarHilo(politicas.cual(m));
+						break hilo; 
 					}
+					else { k = false; }
+					
 /*############################################################*/
 /*##############    IMPRESIONES POR PANTALLA	##############*/
 /*############################################################*/
@@ -57,13 +62,7 @@ public class GestorMonitor {
 					System.out.print("\n\n");
 /*############################################################*/
 /*############################################################*/
-/*############################################################*/
-					
-					if (c > 0) {
-						colas.liberarHilo(politicas.cual(m));
-						break hilo; 
-					}
-					else { k = false; }
+/*############################################################*/		
 				}
 				else {
 					System.out.print("NoSenc: " + t + "\n");

@@ -17,4 +17,6 @@
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="archivos.Lector"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="monitor.RdP"/>
+<fullyQualifiedTypeName name="archivos.Matriz"/>
 </qualifiedTypeNameHistroy>

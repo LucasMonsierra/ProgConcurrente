@@ -1,11 +1,13 @@
 package monitor;
 
+import archivos.Matriz;
+
 public class Politicas {
 	
-	public int cual(int[] m) {
+	public int cual(Matriz m) {
 		int i;
-		for (i = 0; i < m.length ; i++) {
-			if (m[i] == 1) { break; }
+		for (i = 0; i < m.getColumnas() ; i++) {
+			if (m.getValor(0, i) == 1) { break; }
 		}
 		return i;
 	}

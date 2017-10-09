@@ -83,7 +83,7 @@ public class Matriz {
 		String texto = "";
 		for (int i = 0; i < this.getFilas(); i++) {
 			for (int j = 0; j < this.getColumnas(); j++) {
-				texto += " " + this.m[i][j];
+				texto += this.m[i][j] + " ";
 			}
 			texto += "\n";
 		}

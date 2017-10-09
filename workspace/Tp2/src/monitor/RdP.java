@@ -1,76 +1,56 @@
 package monitor;
 
 import archivos.Escritor;
-import java.util.Arrays;
+import archivos.Lector;
+import archivos.Matriz;
+
+import java.util.HashMap;
 
 public class RdP {
 	
-	static int TRANS;
+	private int TRANS;
 	private int PLAZAS;
-	private int[] Marcado;
-	private int[][] MatrizI;
+	private Matriz Marcado;
+	private Matriz MatrizI;
+	private HashMap<String, Matriz> hash;
 	
 	public RdP() {
 		
-		Marcado = new int[] {1, 1, 1, 1, 6, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
-		MatrizI = new int[][] { {0, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0},
-								{0, 0, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0},
-								{-1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 1, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1},
-								{-1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1},
-								{0, 0, 0, -1, -1, 1, 1, 0, 0, 0, -1, 1, -1, 1, 0, 0, -1, 1, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, -1, -1, 1, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0},
-								{0, 0, 0, -1, 0, 1, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 1, 0} };
-								
-		PLAZAS = (Marcado.length);
-		TRANS = (MatrizI[0].length);
+		Lector lector = new Lector();
+		hash = lector.leerHTML();
+		
+		Marcado = hash.get("marcado");
+		MatrizI = hash.get("incidencia");
+		
+		PLAZAS = (MatrizI.getFilas());
+		TRANS = (MatrizI.getColumnas());			
 	}
 	
-	public int[] getSencib() {
+	public Matriz getSencib() {
 		int f;
-		int[] sencib = new int[TRANS];
+		Matriz sencib = new Matriz(1, TRANS);
 		
 		for (int i = 0 ; i < TRANS ; i++) {
 			f = 0;
 			for (int j = 0 ; j < PLAZAS ; j++) {
-				if (Marcado[j] + MatrizI[j][i] > 0) { sencib[i] = 1; }
-				else if (Marcado[j] + MatrizI[j][i] < 0) { f++; }
+				if (Marcado.getValor(0, j) + MatrizI.getValor(j, i) > 0) { sencib.setValor(0, i, 1); }
+				else if (Marcado.getValor(0, j) + MatrizI.getValor(j, i) < 0) { f++; }
 			}
-			if (f > 0) { sencib[i] = 0; }
+			if (f > 0) { sencib.setValor(0, i, 0); }
 		}
 		return sencib;		
 	}
 	
 	public boolean isSencib(int t) {
-		int[] v = getSencib();
+		Matriz v = getSencib();
 		
-		if (v[t] == 1) { return true; }
+		if (v.getValor(0, t) == 1) { return true; }
 		else { return false; }
 	}
 	
 	public void newState(int t) {
 		for (int i = 0 ; i < PLAZAS ; i++) {
-			Marcado[i] = Marcado[i] + MatrizI[i][t];
+			Marcado.setValor(0, i, Marcado.getValor(0, i) + MatrizI.getValor(i, t));
 		}
 	}
 	
@@ -80,6 +60,10 @@ public class RdP {
 	}
 	
 	public void guardarMarcado () {
-		Escritor.getInstance().guardar(Arrays.toString(Marcado));
+		Escritor.getInstance().guardar(Marcado.toString());
+	}
+	
+	public int getTrans() {
+		return MatrizI.getColumnas();
 	}
 }

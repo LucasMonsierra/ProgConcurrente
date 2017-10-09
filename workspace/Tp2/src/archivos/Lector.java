@@ -106,9 +106,9 @@ public class Lector {
 		hash.put("marcado", marc);
 	}
 	
-	public int[][] leerLog(String archivoLog) throws Exception {
+	public Matriz leerLog(String archivoLog) throws Exception {
 		
-		int[][] matriz;
+		Matriz matriz;
 		
 		File inFile = new File (dirLog + archivoLog);
 		Scanner in = new Scanner (inFile);
@@ -123,14 +123,14 @@ public class Lector {
 		
 		in.close();
 		
-		matriz = new int[filas][columnas];
+		matriz = new Matriz(filas, columnas);
 		in = new Scanner(inFile);
 		
 		for ( int j = 0 ; j < filas ; j++ ) {
 		//while (in.hasNextLine()) {
 			String[] currentLine = in.nextLine().trim().split("\\s+");
 			for ( int i = 0 ; i < currentLine.length ; i ++ ) {
-				matriz[j][i] = Integer.parseInt(currentLine[i]);
+				matriz.setValor(j, i, Integer.parseInt(currentLine[i]));
 			}
 		}
 		in.close();

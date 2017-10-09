@@ -39,9 +39,6 @@ public class Main {
 		Thread h8 = new Thread(lc1);
 		Thread h9 = new Thread(lc2);
 		
-		Lector lect = new Lector();
-		lect.leerHTML();
-		/*
 		h1.start();
 		h2.start();
 		h3.start();
@@ -51,7 +48,7 @@ public class Main {
 		h7.start();
 		h8.start();
 		h9.start();
-		
+
 		try {
 			Thread.sleep(20000);
 			Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados());
@@ -59,7 +56,7 @@ public class Main {
 		} 
 		catch (InterruptedException e) {
 			e.printStackTrace(); 
-		}*/
+		}
 	}
 
 }

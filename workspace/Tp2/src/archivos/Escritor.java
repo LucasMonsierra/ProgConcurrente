@@ -15,7 +15,7 @@ public class Escritor {
 	
 	private static Escritor esc = null;
 	private String sUbicacion = System.getProperty("user.home") + "\\Log\\";
-	public String marcados = null;
+	public String marcados = "";
 	
 	private Escritor() {
 		File file = new File(sUbicacion);
@@ -35,7 +35,7 @@ public class Escritor {
 	
 	// GUARDA EN UN STRING EL LOS DISTINTOS MARCADOS LIMPIOS DE CARACTERES NO DESEADOS
 	public void guardar(String texto) {
-		marcados = marcados.concat(CharMatcher.anyOf("[],").removeFrom(texto) + "\r\n");
+		marcados = marcados.concat(texto + "\r\n");
 	}
 	
 	// GUARDA EN UN ARCHIVO EL STRING QUE TIENE TODOS LOS MARCADOS SIN CARACTERES ESPECIALES
