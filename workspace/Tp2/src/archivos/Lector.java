@@ -2,6 +2,7 @@ package archivos;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,17 +16,26 @@ import org.jsoup.select.Elements;
 
 public class Lector {
 	
-	private String dirLog = System.getProperty("user.home") + "//Log//";
+	private String dirLog;
+	private HashMap<String, Matriz> hash;
 	private Document html;
 	
-	public void leerHTML () {
+	public Lector () { 
+		dirLog = System.getProperty("user.home") + "//Log//";
+		hash = new HashMap<>();
+	}
+	
+	public HashMap<String, Matriz> leerHTML () {
 		
 		File file = null;
-		JFileChooser fileChooser = new JFileChooser();
+		/*JFileChooser fileChooser = new JFileChooser();
 		int select = fileChooser.showSaveDialog(fileChooser);
 		
 		if (select == JFileChooser.APPROVE_OPTION)
-			file = fileChooser.getSelectedFile();
+			file = fileChooser.getSelectedFile();*/
+		
+		//CAMBIAR POR EL FILECHOOSER CUANDO ESTÉ LISTO
+		file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\Incidencia.html");
 		
 		try {
 			int incidencia = 0, marcado;
@@ -54,8 +64,7 @@ public class Lector {
 		} catch (IOException ex) {
 			Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
-		
+		return hash;
 	}
 	
 	private void obtenerMatrizIncidencia (Elements tableRowElements, int incidencia) {
@@ -67,13 +76,22 @@ public class Lector {
 		for ( int i = 0 ; i < datos.length ; i++ ) {
 			if ( datos[i].contains("T"))
 				columnas++;
-			else if (datos[i].contains("P") || datos[i].contains("m") || datos[i].contains("x") || datos[i].contains("r")) {
+			else if (datos[i].contains("P") || datos[i].contains("m") || datos[i].contains("x") || datos[i].contains("r"))
 				filas++;
+		}
+		
+		int f = -1;
+		Matriz matriz = new Matriz (filas, columnas);
+		for ( int i = 0 ; i < datos.length ; i++ ) {
+			if (datos[i].contains("P") || datos[i].contains("m") || datos[i].contains("x") || datos[i].contains("r")) {
+				f++;
+				for ( int j = 0 ; j < columnas ; j++ ) {
+					matriz.setValor(f, j, Integer.parseInt(datos[i + 1 + j]));
+				}
 			}
 		}
-		System.out.print("La RDP tiene " + filas + " filas y " + columnas + " columnas.");
+		hash.put("incidencia", matriz);
 	}
-	
 	
 	public int[][] leerLog(String archivoLog) throws Exception {
 		

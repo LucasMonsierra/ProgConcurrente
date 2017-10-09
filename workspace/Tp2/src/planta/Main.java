@@ -1,6 +1,7 @@
 package planta;
 
 import archivos.Escritor;
+import archivos.Lector;
 import monitor.GestorMonitor;
 
 public class Main {
@@ -38,6 +39,9 @@ public class Main {
 		Thread h8 = new Thread(lc1);
 		Thread h9 = new Thread(lc2);
 		
+		Lector lect = new Lector();
+		lect.leerHTML();
+		/*
 		h1.start();
 		h2.start();
 		h3.start();
@@ -55,7 +59,7 @@ public class Main {
 		} 
 		catch (InterruptedException e) {
 			e.printStackTrace(); 
-		}
+		}*/
 	}
 
 }

@@ -78,4 +78,16 @@ public class Matriz {
 
 		return aux == 1;
 	}
+	
+	public String toString() {
+		String texto = "";
+		for (int i = 0; i < this.getFilas(); i++) {
+			for (int j = 0; j < this.getColumnas(); j++) {
+				texto += " " + this.m[i][j];
+			}
+			texto += "\n";
+		}
+		texto += "";
+		return texto;
+	}
 }
