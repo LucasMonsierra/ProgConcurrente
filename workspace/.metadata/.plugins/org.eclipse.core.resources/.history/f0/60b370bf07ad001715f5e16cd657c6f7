@@ -13,9 +13,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import Otras.LeerArchivo;
+
 public class Lector {
 	
-	private String dirLog = System.getProperty("user.home") + "//Log//";
+	private String dirLog = System.getProperty("user.home") + "//Log//",
+				   dirHTML = System.getProperty("user.dir") + "//hTML//";
 	private Document html;
 	
 	public void leerHTML () {
@@ -60,18 +63,6 @@ public class Lector {
 	
 	private void obtenerMatrizIncidencia (Elements tableRowElements, int incidencia) {
 		
-		Element row = tableRowElements.get(incidencia + 1);
-		String[] datos = row.text().split(" ");
-		
-		int columnas = 0, filas = 0;
-		for ( int i = 0 ; i < datos.length ; i++ ) {
-			if ( datos[i].contains("T"))
-				columnas++;
-			else if (datos[i].contains("P") || datos[i].contains("m") || datos[i].contains("x") || datos[i].contains("r")) {
-				filas++;
-			}
-		}
-		System.out.print("La RDP tiene " + filas + " filas y " + columnas + " columnas.");
 	}
 	
 	

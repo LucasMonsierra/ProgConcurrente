@@ -13,7 +13,16 @@ public class TestPInvariantes {
 	public static int[][] marcados;
 	
 	@BeforeClass public static void test() throws Exception {
+		//Thread.sleep(5000);
 		marcados = lector.leerLog("Marcados.txt");
+		//Thread.sleep(1000);
+		
+		/*for ( int i = 0 ; i < marcados.length ; i++ ) {
+			for (int j = 0 ; j < marcados[0].length ; j++ ) {
+				System.out.print(marcados[i][j]);
+			}
+			System.out.print("\n");
+		}*/
 	}
 	
 	@Test // M(M1) + M(P13) = 1

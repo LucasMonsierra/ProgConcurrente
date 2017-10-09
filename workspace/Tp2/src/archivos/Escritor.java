@@ -15,11 +15,10 @@ public class Escritor {
 	
 	private static Escritor esc = null;
 	private String sUbicacion = System.getProperty("user.home") + "\\Log\\";
-	public String marcados;
+	public String marcados = null;
 	
 	private Escritor() {
 		File file = new File(sUbicacion);
-		marcados = "";
 		try {
 			FileUtils.cleanDirectory(file);
 		} catch (IOException e) {
