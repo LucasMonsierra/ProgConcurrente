@@ -100,10 +100,10 @@ public class Lector {
 		String[] datos = row.text().split(" ");
 		
 		Matriz marc = new Matriz (1, datos.length - 1);
-		for ( int i = 1 ; i < datos.length ; i++ )
-			marc.setValor(0, i - 1, Integer.parseInt(datos[i]));
-		
-		hash.put("marcado", marc);
+		for ( int i = 1 ; i < datos.length ; i++ ) {
+			marc.setValor(1, i - 1, Integer.parseInt(datos[i]));
+		}
+		System.out.print(marc.toString());
 	}
 	
 	public int[][] leerLog(String archivoLog) throws Exception {

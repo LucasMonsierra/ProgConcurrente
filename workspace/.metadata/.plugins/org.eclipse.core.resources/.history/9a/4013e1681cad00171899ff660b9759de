@@ -38,7 +38,7 @@ public class Lector {
 		file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\Incidencia.html");
 		
 		try {
-			int incidencia = 0, marcado = 0;
+			int incidencia = 0, marcado;
 			html = Jsoup.parse(file, "UTF-8");
 			Elements tableElements = html.select("table");
 			Elements tableRowElements = tableElements.select(":not(thead) tr");
@@ -61,7 +61,6 @@ public class Lector {
 			}
 			
 			obtenerMatrizIncidencia (tableRowElements, incidencia);
-			obtenerMarcado (tableRowElements, marcado);
 		} catch (IOException ex) {
 			Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -92,18 +91,6 @@ public class Lector {
 			}
 		}
 		hash.put("incidencia", matriz);
-	}
-	
-	private void obtenerMarcado (Elements tableRowElements, int marcado) {
-		
-		Element row = tableRowElements.get(marcado);
-		String[] datos = row.text().split(" ");
-		
-		Matriz marc = new Matriz (1, datos.length - 1);
-		for ( int i = 1 ; i < datos.length ; i++ )
-			marc.setValor(0, i - 1, Integer.parseInt(datos[i]));
-		
-		hash.put("marcado", marc);
 	}
 	
 	public int[][] leerLog(String archivoLog) throws Exception {
