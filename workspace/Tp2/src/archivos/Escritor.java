@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.google.common.base.CharMatcher;
-
 import javax.swing.JOptionPane;
 
 import org.apache.commons.io.FileUtils;
@@ -35,7 +33,7 @@ public class Escritor {
 	
 	// GUARDA EN UN STRING EL LOS DISTINTOS MARCADOS LIMPIOS DE CARACTERES NO DESEADOS
 	public void guardar(String texto) {
-		marcados = marcados.concat(texto + "\r\n");
+		marcados = marcados.concat(texto.trim() + "\r\n");
 	}
 	
 	// GUARDA EN UN ARCHIVO EL STRING QUE TIENE TODOS LOS MARCADOS SIN CARACTERES ESPECIALES

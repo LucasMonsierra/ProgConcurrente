@@ -129,7 +129,7 @@ public class Lector {
 		for ( int j = 0 ; j < filas ; j++ ) {
 		//while (in.hasNextLine()) {
 			String[] currentLine = in.nextLine().trim().split("\\s+");
-			for ( int i = 0 ; i < currentLine.length ; i ++ ) {
+			for ( int i = 0 ; i < currentLine.length ; i++ ) {
 				matriz.setValor(j, i, Integer.parseInt(currentLine[i]));
 			}
 		}

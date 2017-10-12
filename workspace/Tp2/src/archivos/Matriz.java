@@ -87,7 +87,6 @@ public class Matriz {
 			}
 			texto += "\n";
 		}
-		texto += "";
 		return texto;
 	}
 }
