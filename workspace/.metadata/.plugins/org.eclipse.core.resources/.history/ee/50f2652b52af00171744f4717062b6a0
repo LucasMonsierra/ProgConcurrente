@@ -1,0 +1,24 @@
+package monitor;
+
+import java.util.concurrent.Semaphore;
+
+public class mutex {
+
+	private Semaphore mutex;
+	
+	public mutex () {
+		mutex = new Semaphore(1,true);
+	}
+	
+	public void adquirirMutex () {
+		try {
+			mutex.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void liberarMutex () {
+		mutex.release();
+	}
+}

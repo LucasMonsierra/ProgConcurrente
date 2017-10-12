@@ -1,10 +1,12 @@
 package monitor;
 
+import java.util.concurrent.Semaphore;
+
 import archivos.Matriz;
 
 public class GestorMonitor {
 	
-	private Mutex mutex;
+	private Semaphore mutex;
 	private RdP rdp;
 	private Colas colas;
 	private Politicas politicas;
@@ -13,7 +15,7 @@ public class GestorMonitor {
 	private int disp;
 	
 	public GestorMonitor() {
-		mutex = new Mutex();
+		mutex = new mutex();
 		rdp = new RdP();
 		colas = new Colas(rdp.getTrans());
 		politicas = new Politicas();
@@ -22,8 +24,11 @@ public class GestorMonitor {
 	}
 	
 	public void dispararTransicion(int t) {
-		
-		mutex.adquirirMutex();
+		try {
+			mutex.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		k = true;
 		
 		hilo: {
@@ -45,12 +50,12 @@ public class GestorMonitor {
 				}
 				else {
 					System.out.print("NoSenc: " + t + "\n");
-					mutex.liberarMutex();
+					mutex.release();
 					System.out.print("Encolo: " + t + "\n");
 					colas.adquirirCola(t);
 				}
 			}
-			mutex.liberarMutex();
+			mutex.release();
 		}
 	}
 }

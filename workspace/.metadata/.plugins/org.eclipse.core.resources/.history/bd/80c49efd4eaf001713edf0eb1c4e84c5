@@ -1,6 +1,7 @@
 package planta;
 
 import archivos.Escritor;
+import archivos.Lector;
 import monitor.GestorMonitor;
 
 public class Main {
