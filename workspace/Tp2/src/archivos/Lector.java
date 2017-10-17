@@ -28,12 +28,13 @@ public class Lector {
 	public HashMap<String, Matriz> leerHTML () {
 		
 		File file = null;
-		/*JFileChooser fileChooser = new JFileChooser();
+		/*
+		JFileChooser fileChooser = new JFileChooser("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\");
 		int select = fileChooser.showSaveDialog(fileChooser);
 		
 		if (select == JFileChooser.APPROVE_OPTION)
-			file = fileChooser.getSelectedFile();*/
-		
+			file = fileChooser.getSelectedFile();
+		*/
 		//CAMBIAR POR EL FILECHOOSER CUANDO ESTÉ LISTO
 		file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\Incidencia.html");
 		
