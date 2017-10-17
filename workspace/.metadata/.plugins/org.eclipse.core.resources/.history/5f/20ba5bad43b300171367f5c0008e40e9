@@ -22,8 +22,9 @@ public class GestorMonitor {
 	
 	public void dispararTransicion(int t) {
 		
+		mutex.adquirirMutex();
+		
 		hilo: {
-			mutex.adquirirMutex();
 			while (!rdp.shoot(t)) {				
 				System.out.print("NoSenc: " + t + "\n");
 				mutex.liberarMutex();
@@ -37,11 +38,10 @@ public class GestorMonitor {
 			
 			m = vs.and(vc);
 						
-			if (!m.esCero()) {
+			if (!m.esCero())
 				colas.liberarHilo(politicas.cual(m));
-				break hilo;
-			}
-			mutex.liberarMutex();
+			break hilo;
 		}
+		mutex.liberarMutex();
 	}
 }
