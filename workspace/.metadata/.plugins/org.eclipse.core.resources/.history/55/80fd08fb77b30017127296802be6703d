@@ -50,8 +50,7 @@ public class Main {
 
 		try {
 			Thread.sleep(20000);
-			Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados(), "Marcados.txt");
-			Escritor.getInstance().imprimir(Escritor.getInstance().getPiezasHechas(), "Piezas.txt");
+			Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados());
 			System.out.print("Done!");
 		} 
 		catch (InterruptedException e) {
