@@ -40,7 +40,6 @@ public class GestorMonitor {
 						
 			if (!m.esCero())
 				colas.liberarHilo(politicas.cual(m));
-			break hilo;
 		}
 		mutex.liberarMutex();
 	}
