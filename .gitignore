@@ -20,3 +20,5 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+workspace/.metadata/.plugins/org.eclipse.pde.core/.cache/clean-cache.properties
+workspace/.metadata/.plugins/org.eclipse.jdt.ui/QualifiedTypeNameHistory.xml

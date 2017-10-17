@@ -1,0 +1,22 @@
+package monitor;
+
+import archivos.Matriz;
+
+public class Politicas {
+	
+	public Politicas () {
+		
+		int[] iPolitica = { 10,  3,  3,  3,  3,  3,  3,  3,  3,  1,  10,  3,  3,  1,  10,  3,  3,  10,  3,  1};
+	    //int[] iPolitica = { 20,  7,  7,  7,  6,  7,  6,  7,  6,  1,  15,  5,  5,  1,  10,  3,  3,  3,  3,  1};
+						//{t10,t11,t12,t13,t14,t15,t16,t17,t18,t19, t21,t22,t23,t24, t31,t32,t33, t34,t35,t36} 
+	}
+	
+	public int cual(Matriz m) {
+		int i;
+		for (i = 0; i < m.getColumnas() ; i++) {
+			if (m.getValor(0, i) == 1) { break; }
+		}
+		return i;
+	}
+
+}

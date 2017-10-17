@@ -9,8 +9,6 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.io.FileUtils;
 
-import com.google.common.base.Objects;
-
 public class Escritor {
 	
 	private static Escritor esc = null;
@@ -38,8 +36,7 @@ public class Escritor {
 	
 	// GUARDA EN UN STRING EL LOS DISTINTOS MARCADOS LIMPIOS DE CARACTERES NO DESEADOS
 	public void guardar(String texto) {
-		if (!Objects.equal(null, texto))
-			marcados = marcados.concat(texto.trim() + "\r\n");
+		marcados = marcados.concat(texto.trim() + "\r\n");
 	}
 	
 	// GUARDA EN CADA ENTERO LA CANTIDAD DE PIEZAS QUE SE HIZO DE CADA UNA
@@ -72,9 +69,5 @@ public class Escritor {
 	//RETORNA EL STRING QUE CONTIENE TODOS LOS MARCADOS
 	public String getMarcados () {
 		return marcados;
-	}
-	
-	public String getPiezasHechas () {
-		return "Piezas A: " + a + " Piezas B: " + b + " Piezas C: " + c;
 	}
 }

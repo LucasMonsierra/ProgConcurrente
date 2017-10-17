@@ -4,11 +4,20 @@ import archivos.Matriz;
 
 public class Politicas {
 	
-	int[] politica1 = { 10,  3,  3,  3,  3,  3,  3,  3,  3,  1,  10,  3,  3,  1,  15,  13,  13, 13,  13,  5};
-					//{t10,t11,t12,t13,t14,t15,t16,t17,t18,t19, t20,t21,t22,t23, t30, t31, t32,t33, t34,t35} 
+	int[] politica1 = { 10,  3,  3,  3,  3,  3,  3,  3,  3,  1,  10,  3,  3,  1,  15,  3,  3,  13,  3,  3};
+					//{t10,t11,t12,t13,t14,t15,t16,t17,t18,t19, t20,t21,t22,t23, t30,t31,t32, t33,t34,t35} 
 
 	public Politicas () {
 	    //int[] iPolitica = { 20,  7,  7,  7,  6,  7,  6,  7,  6,  1,  15,  5,  5,  1,  10,  3,  3,  3,  3,  1};
+	}
+	
+	
+	public int cual1(Matriz m) {
+		int i;
+		for (i = 0; i < m.getColumnas() ; i++) {
+			if (m.getValor(0, i) == 1) { break; }
+		}
+		return i;
 	}
 	
 	public int cual(Matriz m) {

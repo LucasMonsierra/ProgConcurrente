@@ -11,11 +11,22 @@ public class Politicas {
 	    //int[] iPolitica = { 20,  7,  7,  7,  6,  7,  6,  7,  6,  1,  15,  5,  5,  1,  10,  3,  3,  3,  3,  1};
 	}
 	
+	
+	public int cual1(Matriz m) {
+		int i;
+		for (i = 0; i < m.getColumnas() ; i++) {
+			if (m.getValor(0, i) == 1) { break; }
+		}
+		return i;
+	}
+	
 	public int cual(Matriz m) {
 		int t = 0, may = 0;
 		for (int i = 0; i < m.getColumnas() ; i++) {
 			if (m.getValor(0, i) == 1 && politica1[i] > may ) { may = politica1[i]; t = i; }
 		}
+		System.out.print(m.toString());
+		System.out.print(t + "\n");
 		return t;
 	}
 
