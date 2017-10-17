@@ -9,8 +9,6 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.io.FileUtils;
 
-import com.google.common.base.Objects;
-
 public class Escritor {
 	
 	private static Escritor esc = null;
@@ -35,8 +33,7 @@ public class Escritor {
 	
 	// GUARDA EN UN STRING EL LOS DISTINTOS MARCADOS LIMPIOS DE CARACTERES NO DESEADOS
 	public void guardar(String texto) {
-		if (!Objects.equal(null, texto))
-			marcados = marcados.concat(texto.trim() + "\r\n");
+		marcados = marcados.concat(texto.trim() + "\r\n");
 	}
 	
 	// GUARDA EN UN ARCHIVO EL STRING QUE TIENE TODOS LOS MARCADOS SIN CARACTERES ESPECIALES

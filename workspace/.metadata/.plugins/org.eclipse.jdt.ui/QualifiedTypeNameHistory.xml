@@ -19,4 +19,5 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="monitor.RdP"/>
 <fullyQualifiedTypeName name="archivos.Matriz"/>
+<fullyQualifiedTypeName name="com.google.common.base.Objects"/>
 </qualifiedTypeNameHistroy>
