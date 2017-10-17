@@ -12,7 +12,7 @@ public class Politicas {
 	}
 	
 	
-	public int cual1(Matriz m) {
+	public int cual(Matriz m) {
 		int i;
 		for (i = 0; i < m.getColumnas() ; i++) {
 			if (m.getValor(0, i) == 1) { break; }
@@ -20,7 +20,7 @@ public class Politicas {
 		return i;
 	}
 	
-	public int cual(Matriz m) {
+	public int cual1(Matriz m) {
 		int t = 0, may = 0;
 		for (int i = 0; i < m.getColumnas() ; i++) {
 			if (m.getValor(0, i) == 1 && politica1[i] > may ) { may = politica1[i]; t = i; }

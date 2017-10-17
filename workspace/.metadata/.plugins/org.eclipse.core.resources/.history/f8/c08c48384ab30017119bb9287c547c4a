@@ -25,7 +25,9 @@ public class GestorMonitor {
 		hilo: {
 			mutex.adquirirMutex();
 			while (!rdp.shoot(t)) {				
+				System.out.print("NoSenc: " + t + "\n");
 				mutex.liberarMutex();
+				System.out.print("Encolo: " + t + "\n");
 				colas.adquirirCola(t);
 			}
 				
