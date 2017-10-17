@@ -55,7 +55,7 @@ public class RdP {
 	}
 	
 	public boolean shoot(int t) {
-		if (isSencib(t)) { newState(t); guardarMarcado(); /*contarPiezas(t);*/ return true; }
+		if (isSencib(t)) { newState(t); guardarMarcado(); contarPiezas(t); return true; }
 		else { return false; }
 	}
 	
@@ -63,18 +63,9 @@ public class RdP {
 		Escritor.getInstance().guardar(Marcado.toString());
 	}
 	
-	/*public void contarPiezas (int t) {
-		int a = 0, b = 0, c = 0;
-		switch (t) {
-		case 9:
-			a++; break;
-		case 13:
-			b++; break;
-		case 19:
-			c++; break;
-		}
-		Escritor.getInstance().guardarPiezasHechas(a,b,c);
-	}*/
+	public void contarPiezas (int t) {
+		Escritor.getInstance().guardarPiezasHechas(t);
+	}
 	
 	public int getTrans() {
 		return MatrizI.getColumnas();

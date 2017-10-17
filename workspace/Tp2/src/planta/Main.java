@@ -8,6 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		GestorMonitor gm = new GestorMonitor();
+		
 		int[] entrada = {0};
 		int[] secuenciaA1 = {1, 3};
 		int[] secuenciaA2 = {5};
@@ -50,7 +51,8 @@ public class Main {
 
 		try {
 			Thread.sleep(20000);
-			Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados());
+			Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados(), "Marcados.txt");
+			Escritor.getInstance().imprimir(Escritor.getInstance().getPiezasHechas(), "Piezas.txt");
 			System.out.print("Done!");
 		} 
 		catch (InterruptedException e) {

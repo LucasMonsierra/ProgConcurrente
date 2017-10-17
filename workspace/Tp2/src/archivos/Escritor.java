@@ -14,6 +14,9 @@ public class Escritor {
 	private static Escritor esc = null;
 	private String sUbicacion = System.getProperty("user.home") + "\\Log\\";
 	public String marcados = "";
+	public int a = 0;
+	public int b = 0;
+	public int c = 0;
 	
 	private Escritor() {
 		File file = new File(sUbicacion);
@@ -36,9 +39,21 @@ public class Escritor {
 		marcados = marcados.concat(texto.trim() + "\r\n");
 	}
 	
+	// GUARDA EN CADA ENTERO LA CANTIDAD DE PIEZAS QUE SE HIZO DE CADA UNA
+	public void guardarPiezasHechas(int t) {
+		switch (t) {
+		case 9:
+			a++; break;
+		case 13:
+			b++; break;
+		case 19:
+			c++; break;
+		}
+	}
+	
 	// GUARDA EN UN ARCHIVO EL STRING QUE TIENE TODOS LOS MARCADOS SIN CARACTERES ESPECIALES
-	public void imprimir(String texto) {
-		File fichero = new File(sUbicacion + "Marcados.txt");
+	public void imprimir(String texto, String nombre) {
+		File fichero = new File(sUbicacion + nombre);
 		BufferedWriter bw = null;
 		try {
 			bw = new BufferedWriter(new FileWriter(fichero, true));
@@ -55,9 +70,8 @@ public class Escritor {
 	public String getMarcados () {
 		return marcados;
 	}
-
-	public void guardarPiezasHechas(int a, int b, int c) {
-		// TODO Auto-generated method stub
-		//FALTA DESARROLLAR EL MÉTODO
+	
+	public String getPiezasHechas () {
+		return "Piezas A: " + a + " Piezas B: " + b + " Piezas C: " + c;
 	}
 }
