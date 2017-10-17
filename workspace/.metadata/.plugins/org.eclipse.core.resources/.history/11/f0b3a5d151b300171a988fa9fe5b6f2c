@@ -55,9 +55,4 @@ public class Escritor {
 	public String getMarcados () {
 		return marcados;
 	}
-
-	public void guardarPiezasHechas(int a, int b, int c) {
-		// TODO Auto-generated method stub
-		//FALTA DESARROLLAR EL MÉTODO
-	}
 }
