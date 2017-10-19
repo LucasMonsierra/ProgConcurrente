@@ -7,7 +7,6 @@
 <fullyQualifiedTypeName name="java.util.Scanner"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="org.junit.Assert"/>
-<fullyQualifiedTypeName name="archivos.Escritor"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.swing.JFileChooser"/>
 <fullyQualifiedTypeName name="org.jsoup.nodes.Document"/>
@@ -20,4 +19,5 @@
 <fullyQualifiedTypeName name="monitor.RdP"/>
 <fullyQualifiedTypeName name="archivos.Matriz"/>
 <fullyQualifiedTypeName name="com.google.common.base.Objects"/>
+<fullyQualifiedTypeName name="archivos.Escritor"/>
 </qualifiedTypeNameHistroy>

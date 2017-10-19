@@ -34,8 +34,7 @@ public class GestorMonitor {
 			Matriz vc = colas.quienesEstan();
 			
 			m = vs.and(vc);
-						
-			if (!m.esCero()) {
+			if (!m.esCero()) { 
 				colas.liberarHilo(politicas.cual(m));
 				break hilo;
 			}

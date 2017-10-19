@@ -137,4 +137,20 @@ public class Lector {
 		in.close();
 		return matriz;
 	}
+	
+	public Matriz leerPorcentajes() {
+		
+		Matriz matriz = new Matriz(1, 3);
+		
+		Scanner input = new Scanner(System.in);
+		System.out.print("Ingrese el % de piezas A a fabricar: \n");
+		matriz.setValor(0, 0, input.nextInt());
+		System.out.print("Ingrese el % de piezas B a fabricar: \n");
+		matriz.setValor(0, 1, input.nextInt());
+		System.out.print("Ingrese el % de piezas C a fabricar: \n");
+		matriz.setValor(0, 2, input.nextInt());
+		input.close();
+		
+		return matriz;
+ 	}
 }
