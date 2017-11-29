@@ -23,16 +23,16 @@ public class GestorMonitor {
 	public void dispararTransicion(int t) throws InterruptedException {
 
 			mutex.adquirirMutex();
-			while (!rdp.disparar(t)) {				
+			while (!rdp.shoot(t)) {				
 				mutex.liberarMutex();
-				if (rdp.getVentana() > 0 && rdp.getVectorSencibilizadas().getValor(0, t) == 1)
+				if (rdp.getVentana() > 0 && rdp.getSencib().getValor(0, t) == 1)
 					Thread.sleep(rdp.getVentana());
 				else
 					colas.adquirirCola(t);
 			}
 				
 			System.out.print(disp++ + ". T: " + t +"\n");
-			Matriz vs = rdp.getVectorSencibilizadas();
+			Matriz vs = rdp.getSencib();
 			Matriz vc = colas.quienesEstan();
 			
 			m = vs.and(vc);
@@ -43,8 +43,6 @@ public class GestorMonitor {
 		}
 	}	
 	/*
-	 *  ####################### MONITOR SIN TIEMPO ########################
-	 * 
 		public void dispararTransicion(int t) throws InterruptedException {
 
 			mutex.adquirirMutex();

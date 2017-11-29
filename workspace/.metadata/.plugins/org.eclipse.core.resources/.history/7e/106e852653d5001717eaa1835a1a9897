@@ -68,22 +68,12 @@ public class RdP {
 		ventana = getVentanaTiempo(t);
 		
 		if (estaSencibilizada(t) && ventana == 0) { 
-			nuevoEstado(t);
-			calculoTimeStamp();
+			nuevoEstado(t); 
 			guardarMarcado(); 
 			contarPiezas(t); 
 			return true; 
 		}
 		else { return false; }
-	}
-	
-	public void calculoTimeStamp() {
-		long tiempo = System.currentTimeMillis();
-		
-		for (int i = 0 ; i < timestamp.length ; i++) {
-			if (estaSencibilizada (i)) { timestamp[i] = tiempo; }
-			else { timestamp[i] = 0; }
-		}	
 	}
 	
 	public int getVentanaTiempo(int t) {

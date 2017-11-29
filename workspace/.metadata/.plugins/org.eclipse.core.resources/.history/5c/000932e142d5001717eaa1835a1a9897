@@ -23,7 +23,6 @@ public class GestorMonitor {
 	public void dispararTransicion(int t) throws InterruptedException {
 
 			mutex.adquirirMutex();
-			while (!rdp.disparar(t)) {				
 				mutex.liberarMutex();
 				if (rdp.getVentana() > 0 && rdp.getVectorSencibilizadas().getValor(0, t) == 1)
 					Thread.sleep(rdp.getVentana());

@@ -83,7 +83,8 @@ public class RdP {
 		for (int i = 0 ; i < timestamp.length ; i++) {
 			if (estaSencibilizada (i)) { timestamp[i] = tiempo; }
 			else { timestamp[i] = 0; }
-		}	
+		}
+		
 	}
 	
 	public int getVentanaTiempo(int t) {
