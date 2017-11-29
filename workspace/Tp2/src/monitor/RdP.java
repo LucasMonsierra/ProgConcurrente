@@ -17,7 +17,7 @@ public class RdP {
 	public RdP() {
 		
 		Lector lector = new Lector();
-		hash = lector.leerHTML();
+		hash = lector.leerIncidencia();
 		
 		Marcado = hash.get("marcado");
 		MatrizI = hash.get("incidencia");
@@ -69,5 +69,9 @@ public class RdP {
 	
 	public int getTrans() {
 		return MatrizI.getColumnas();
+	}
+
+	public int getVentana() {
+		return ;
 	}
 }

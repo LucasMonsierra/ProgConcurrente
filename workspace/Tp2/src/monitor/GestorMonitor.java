@@ -20,13 +20,15 @@ public class GestorMonitor {
 		disp = 0;
 	}
 	
-	public void dispararTransicion(int t) {
-		
-		hilo: {
+	public void dispararTransicion(int t) throws InterruptedException {
+
 			mutex.adquirirMutex();
 			while (!rdp.shoot(t)) {				
 				mutex.liberarMutex();
-				colas.adquirirCola(t);
+				if (rdp.getVentana() > 0 && rdp.getSencib().getValor(0, t) == 1)
+					Thread.sleep(rdp.getVentana());
+				else
+					colas.adquirirCola(t);
 			}
 				
 			System.out.print(disp++ + ". T: " + t +"\n");
@@ -36,8 +38,7 @@ public class GestorMonitor {
 			m = vs.and(vc);
 			if (!m.esCero()) { 
 				colas.liberarHilo(politicas.cual(m));
-				break hilo;
-			}
+				
 			mutex.liberarMutex();
 		}
 	

@@ -25,8 +25,7 @@ public class Lector {
 		hash = new HashMap<>();
 	}
 	
-	public HashMap<String, Matriz> leerHTML () {
-		
+	public File elegirHTML() {
 		File file = null;
 		/*
 		JFileChooser fileChooser = new JFileChooser("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\");
@@ -36,36 +35,71 @@ public class Lector {
 			file = fileChooser.getSelectedFile();
 		*/
 		//CAMBIAR POR EL FILECHOOSER CUANDO ESTÉ LISTO
-		file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\Incidencia.html");
+		return file;
+	}
+	
+	public void parsearHTML (File file) {
+		try { html = Jsoup.parse(file, "UTF-8"); }
+		catch (IOException ex) { Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex); }
+	}
+	
+	public HashMap<String, Matriz> leerIncidencia () {
+		File file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\Incidencia.html");
+		/*
+		File file = elegirHTML();*/
+		parsearHTML(file);
+		Elements tableElements = html.select("table");
+		Elements tableRowElements = tableElements.select(":not(thead) tr");
 		
-		try {
-			int incidencia = 0, marcado = 0;
-			html = Jsoup.parse(file, "UTF-8");
-			Elements tableElements = html.select("table");
-			Elements tableRowElements = tableElements.select(":not(thead) tr");
+		int incidencia = 0, marcado = 0;
 			
-			for ( int i = 0 ; i < tableRowElements.size() ; i++ ) {
-				
-				Element row = tableRowElements.get(i);
-				Elements rowItems = row.select("td");
-				
-				for ( int j = 0 ; j < rowItems.size() ; j++ ) {
-					switch (rowItems.get(j).text()) {
+		for ( int i = 0 ; i < tableRowElements.size() ; i++ ) {
+			Element row = tableRowElements.get(i);
+			Elements rowItems = row.select("td");
+			
+			for ( int j = 0 ; j < rowItems.size() ; j++ ) {
+				switch (rowItems.get(j).text()) {
 					case "Combined incidence matrix I":
 						incidencia = i;
 						break;
 					case "Initial":
 						marcado = i;
 						break;
-					}
 				}
 			}
-			
-			obtenerMatrizIncidencia (tableRowElements, incidencia);
-			obtenerMarcado (tableRowElements, marcado);
-		} catch (IOException ex) {
-			Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
 		}
+			
+		obtenerMatrizIncidencia (tableRowElements, incidencia);
+		obtenerMarcado (tableRowElements, marcado);
+		
+		return hash;
+	}
+	
+	public HashMap<String, Matriz> leerInvariantes () {
+		File file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\Invariante.html");
+		/*
+		File file = elegirHTML();*/
+		parsearHTML(file);
+		Elements tableElements = html.select("body");
+		Elements tableRowElements = tableElements.select(":not(thead) tr, h3");
+
+		int T = 0, P = 0, sumaP = 0;
+		for ( int i = 0 ; i < tableRowElements.size() ; i++ ) {
+			switch (tableRowElements.get(i).text()) {
+				case "T-Invariants":
+					T = i;
+					break;
+				case "P-Invariants":
+					P = i;
+					break;
+				case "P-Invariant equations":
+					sumaP = i;
+					break;
+			}
+		}
+		obtenerInvariantes (tableRowElements, T + 2, P, sumaP);
+		obtenerEcuaciones (tableElements);
+
 		return hash;
 	}
 	
@@ -107,7 +141,54 @@ public class Lector {
 		hash.put("marcado", marc);
 	}
 	
-	public Matriz leerLog(String archivoLog) throws Exception {
+	private void obtenerInvariantes (Elements tableRowElements, int in, int out, int fin) {
+		
+		int filas = out - in, columnas = tableRowElements.get(in).text().split(" ").length;
+		Matriz matriz = new Matriz (filas, columnas);
+		
+		for ( int i = 0 ; i < filas ; i++ ) {
+			Element row = tableRowElements.get(in);
+			String[] datos = row.text().split(" ");
+			
+			for ( int j = 0 ; j < columnas ; j++ ) 
+				matriz.setValor(i, j, Integer.parseInt(datos[j]));
+			in++;
+		}
+		hash.put("tinvariantes", matriz);
+		
+		out = out + 2;
+		filas = fin - out;
+		columnas = tableRowElements.get(out).text().split(" ").length;
+		matriz = new Matriz (filas, columnas);
+		
+		for ( int i = 0 ; i < filas ; i++ ) {
+			Element row = tableRowElements.get(out);
+			String[] datos = row.text().split(" ");
+			
+			for ( int j = 0 ; j < columnas ; j++ ) 
+				matriz.setValor(i, j, Integer.parseInt(datos[j]));
+			out++;
+		}
+		hash.put("pinvariantes", matriz);
+	}
+	
+	private void obtenerEcuaciones (Elements tableElements) {
+		
+		String texto = tableElements.first().ownText();
+		String[] datos = texto.split(" ");
+		
+		int r = 0;
+		Matriz resultados = new Matriz(hash.get("pinvariantes").getFilas(),1);
+		for (int i = 0 ; i < datos.length ; i++) {
+			if (datos[i].matches("\\d*")) {
+				resultados.setValor(r, 0, Integer.parseInt(datos[i]));
+				r++;
+			}
+		}
+		hash.put("pinvaresult", resultados);
+	}
+	
+	public Matriz leerLog (String archivoLog) throws Exception {
 		
 		Matriz matriz;
 		
@@ -138,10 +219,13 @@ public class Lector {
 		return matriz;
 	}
 	
-	public Matriz leerPorcentajes() {
+	public Matriz leerPorcentajes () {
 		
 		Matriz matriz = new Matriz(1, 3);
-		
+		matriz.setValor(0, 0, 25);
+		matriz.setValor(0, 1, 50);
+		matriz.setValor(0, 2, 25);
+		/*
 		Scanner input = new Scanner(System.in);
 		System.out.print("Ingrese el % de piezas A a fabricar: \n");
 		matriz.setValor(0, 0, input.nextInt());
@@ -150,7 +234,7 @@ public class Lector {
 		System.out.print("Ingrese el % de piezas C a fabricar: \n");
 		matriz.setValor(0, 2, input.nextInt());
 		input.close();
-		
+		*/
 		return matriz;
  	}
 }

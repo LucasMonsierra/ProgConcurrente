@@ -14,10 +14,10 @@
 <fullyQualifiedTypeName name="org.jsoup.select.Elements"/>
 <fullyQualifiedTypeName name="org.jsoup.nodes.Element"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="archivos.Lector"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="monitor.RdP"/>
 <fullyQualifiedTypeName name="archivos.Matriz"/>
 <fullyQualifiedTypeName name="com.google.common.base.Objects"/>
 <fullyQualifiedTypeName name="archivos.Escritor"/>
+<fullyQualifiedTypeName name="archivos.Lector"/>
 </qualifiedTypeNameHistroy>
