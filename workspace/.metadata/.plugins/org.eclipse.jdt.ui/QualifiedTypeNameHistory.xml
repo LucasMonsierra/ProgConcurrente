@@ -20,4 +20,10 @@
 <fullyQualifiedTypeName name="com.google.common.base.Objects"/>
 <fullyQualifiedTypeName name="archivos.Escritor"/>
 <fullyQualifiedTypeName name="archivos.Lector"/>
+<fullyQualifiedTypeName name="jxl.Workbook"/>
+<fullyQualifiedTypeName name="jxl.read.biff.BiffException"/>
+<fullyQualifiedTypeName name="jxl.Sheet"/>
+<fullyQualifiedTypeName name="jxl.Cell"/>
+<fullyQualifiedTypeName name="jxl.CellType"/>
+<fullyQualifiedTypeName name="jxl.NumberCell"/>
 </qualifiedTypeNameHistroy>

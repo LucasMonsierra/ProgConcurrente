@@ -224,6 +224,8 @@ public class Lector {
 		}
 		hash.put("alfa", alfa);
 		hash.put("beta", beta);
+		System.out.print("B: " + beta.toString());
+
 	}
 	
 	public Matriz leerLog (String archivoLog) throws Exception {

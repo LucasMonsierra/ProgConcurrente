@@ -97,9 +97,9 @@ public class RdP {
 		//Es una transición sin tiempo
 		if (!esTransConTiempo(t)) { return 0; }
 		//Es una transición con tiempo y está dentro de la ventana
-		else if (onTime(t,tiempo) == 1) { return 0; }
+		else if (esTransConTiempo(t) && onTime(t,tiempo) == 1) { return 0; }
 		//Es una transición con tiempo y está antes de la ventana
-		else if (onTime(t,tiempo) == 0) { return aDormir(t,tiempo); }
+		else if (esTransConTiempo(t) && onTime(t,tiempo) == 0) { return aDormir(t,tiempo); }
 		//Es una transición sin tiempo o con tiempo después de la ventana
 		return -1;
 	}
@@ -111,7 +111,7 @@ public class RdP {
 		
 		if (beta.esCero()) {
 			if (a > t) return 0;
-			else return 1;
+			else return 2;
 		}
 		else {
 			if (a > t) return 0;

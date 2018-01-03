@@ -34,12 +34,10 @@ public class GestorMonitor {
 			System.out.print(disp++ + ". T: " + t +"\n");
 			Matriz vs = rdp.getVectorSencibilizadas();
 			Matriz vc = colas.quienesEstan();
-			System.out.print("vs: " + vs.toString());
-			System.out.print("vc: " + vc.toString());
-
+			
 			m = vs.and(vc);
-			System.out.print("m : " + m.toString());
 			if (!m.esCero()) { colas.liberarHilo(politicas.cual(m)); }
+			
 			mutex.liberarMutex();
 	}	
 	/*

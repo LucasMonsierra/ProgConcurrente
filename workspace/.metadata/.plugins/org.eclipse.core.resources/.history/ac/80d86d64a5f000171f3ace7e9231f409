@@ -208,7 +208,7 @@ public class Lector {
 		Sheet hoja = wbook.getSheet(0);
 		int columnas = hoja.getColumns();
 		int filas = hoja.getRows();
-		
+				
 		Matriz alfa = new Matriz(1,filas);
 		Matriz beta = new Matriz(1,filas);
 				
