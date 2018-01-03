@@ -14,6 +14,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import jxl.Cell;
+import jxl.CellType;
+import jxl.NumberCell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
 public class Lector {
 	
 	private String dirLog;
@@ -43,7 +50,7 @@ public class Lector {
 		catch (IOException ex) { Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex); }
 	}
 	
-	public HashMap<String, Matriz> leerIncidencia () {
+	public HashMap<String, Matriz> cargarDatos () {
 		File file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\Incidencia.html");
 		/*
 		File file = elegirHTML();*/
@@ -71,11 +78,13 @@ public class Lector {
 			
 		obtenerMatrizIncidencia (tableRowElements, incidencia);
 		obtenerMarcado (tableRowElements, marcado);
+		leerInvariantes();
+		obtenerTiemposDeTransiciones();
 		
 		return hash;
 	}
 	
-	public HashMap<String, Matriz> leerInvariantes () {
+	public void leerInvariantes () {
 		File file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\Invariante.html");
 		/*
 		File file = elegirHTML();*/
@@ -99,8 +108,6 @@ public class Lector {
 		}
 		obtenerInvariantes (tableRowElements, T + 2, P, sumaP);
 		obtenerEcuaciones (tableElements);
-
-		return hash;
 	}
 	
 	private void obtenerMatrizIncidencia (Elements tableRowElements, int incidencia) {
@@ -186,6 +193,37 @@ public class Lector {
 			}
 		}
 		hash.put("pinvaresult", resultados);
+	}
+	
+	private void obtenerTiemposDeTransiciones () {
+		File file = new File ("C:\\Users\\Lucas\\Documents\\GitHub\\ProgConcurrente\\TP CONCURRENTE\\Matrices\\TransConTiempo.xls");
+		/*
+		File file = elegirHTML();*/
+		
+		Workbook wbook = null;
+		try { wbook = Workbook.getWorkbook(file); }
+		catch (IOException ex) { System.out.print(ex); }
+		catch (BiffException ex) { System.out.print(ex); }
+		
+		Sheet hoja = wbook.getSheet(0);
+		int columnas = hoja.getColumns();
+		int filas = hoja.getRows();
+				
+		Matriz alfa = new Matriz(1,filas);
+		Matriz beta = new Matriz(1,filas);
+				
+		for (int i = 0 ; i < filas ; i++) {
+			for (int j = 0 ; j < columnas ; j++) {
+				Cell celda = hoja.getCell(j,i);
+				if (celda.getType() == CellType.NUMBER) {
+					NumberCell nc = (NumberCell) celda;
+					if (j == 0) { alfa.setValor(0, i, (int) nc.getValue()); }
+					else { beta.setValor(0, i, (int) nc.getValue()); }
+				}
+			}
+		}
+		hash.put("alfa", alfa);
+		hash.put("beta", beta);
 	}
 	
 	public Matriz leerLog (String archivoLog) throws Exception {

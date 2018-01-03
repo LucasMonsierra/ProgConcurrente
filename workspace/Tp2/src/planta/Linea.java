@@ -18,7 +18,11 @@ public class Linea implements Runnable{
 		for(;;){//int j=0;j<500;j++) {
 			int i = 0;
 			while (i < secuencia.length) {
-				gm.dispararTransicion(secuencia[i]);
+				try {
+					gm.dispararTransicion(secuencia[i]);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				i++;
 			}
 		}

@@ -38,9 +38,9 @@ public class GestorMonitor {
 			m = vs.and(vc);
 			if (!m.esCero()) { 
 				colas.liberarHilo(politicas.cual(m));
-				
+			}
+			
 			mutex.liberarMutex();
-		}
 	}	
 	/*
 	 *  ####################### MONITOR SIN TIEMPO ########################

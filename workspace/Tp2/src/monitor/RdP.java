@@ -21,18 +21,20 @@ public class RdP {
 	public RdP() {
 		
 		Lector lector = new Lector();
-		hash = lector.leerIncidencia();
+		hash = lector.cargarDatos();
 		
 		Marcado = hash.get("marcado");
 		MatrizI = hash.get("incidencia");
 		
 		alfa = hash.get("alfa");
 		beta = hash.get("beta");
-		
+				
 		PLAZAS = (MatrizI.getFilas());
 		TRANS = (MatrizI.getColumnas());
 		
 		timestamp = new long[TRANS];
+		calculoTimeStamp();
+		
 	}
 	
 	public Matriz getVectorSencibilizadas() {
@@ -65,14 +67,16 @@ public class RdP {
 	
 	public boolean disparar(int t) {
 		
-		ventana = getVentanaTiempo(t);
-		
-		if (estaSencibilizada(t) && ventana == 0) { 
-			nuevoEstado(t);
-			calculoTimeStamp();
-			guardarMarcado(); 
-			contarPiezas(t); 
-			return true; 
+		if (estaSencibilizada(t)) {
+			ventana = getVentanaTiempo(t);
+			if (ventana == 0) { 
+				nuevoEstado(t);
+				calculoTimeStamp();
+				guardarMarcado(); 
+				contarPiezas(t); 
+				return true;
+			}
+			else { return false; }
 		}
 		else { return false; }
 	}
@@ -116,8 +120,14 @@ public class RdP {
 	}
 	
 	public boolean esTransConTiempo(int t) {
-		if (alfa.getValor(0,t) != 0 && beta.getValor(0,t) != 0) return true;
-		else return false;
+		if (beta != null) {
+			if (alfa.getValor(0,t) != 0 && beta.getValor(0,t) != 0) return true;
+			else return false;
+		}
+		else {
+			if (alfa.getValor(0,t) != 0) return true;
+			else return false;
+		}
 	}
 	
 	public void guardarMarcado () {
