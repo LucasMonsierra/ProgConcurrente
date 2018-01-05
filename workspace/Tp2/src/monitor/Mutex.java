@@ -1,9 +1,41 @@
 package monitor;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Semaphore;
 
 public class Mutex {
-
+	
+	private final BlockingQueue<Thread> mutex;
+	
+	public Mutex () {
+		mutex = new ArrayBlockingQueue<>(1, true);
+	}
+	
+	public void adquirirMutex () {
+		try {
+			mutex.put(Thread.currentThread());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void liberarMutex () {
+		try {
+			mutex.take();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int permisos() {
+		return mutex.remainingCapacity();
+	}
+	
+	public int size () {
+		return mutex.size();
+	}
+/*
 	private Semaphore mutex;
 	
 	public Mutex () {
@@ -21,4 +53,9 @@ public class Mutex {
 	public void liberarMutex () {
 		mutex.release();
 	}
+	
+	public int permisos() {
+		return mutex.availablePermits();
+	}
+*/
 }

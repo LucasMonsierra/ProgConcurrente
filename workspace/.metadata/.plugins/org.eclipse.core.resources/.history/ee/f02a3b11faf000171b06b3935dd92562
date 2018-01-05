@@ -20,25 +20,28 @@ public class GestorMonitor {
 		disp = 0;
 	}
 	
-	public void dispararTransicion(int t) throws InterruptedException {
+	public void dispararTransicion(int t) {
 
 			mutex.adquirirMutex();
-			while (!rdp.disparar(t)) {				
+			while (!rdp.disparar(t)) {
 				mutex.liberarMutex();
-				if (rdp.getVentana() > 0 && rdp.getVectorSencibilizadas().getValor(0, t) == 1)
-					Thread.sleep(rdp.getVentana());
+				if (rdp.getVentana() > 0 && rdp.getVectorSencibilizadas().getValor(0, t) == 1) {
+					try { Thread.sleep(rdp.getVentana()); }
+					catch (InterruptedException e) { e.printStackTrace(); } }
 				else
-					colas.adquirirCola(t);
+					{ colas.adquirirCola(t); Thread.currentThread().setPriority(Thread.MAX_PRIORITY); }
 			}
 				
 			System.out.print(disp++ + ". T: " + t +"\n");
 			Matriz vs = rdp.getVectorSencibilizadas();
 			Matriz vc = colas.quienesEstan();
-			
+			System.out.print("vs: " + vs.toString());
+			System.out.print("vc: " + vc.toString());
+
 			m = vs.and(vc);
+			System.out.print("m : " + m.toString());
 			if (!m.esCero()) { colas.liberarHilo(politicas.cual(m)); }
-			
-			mutex.liberarMutex();
+			else { mutex.liberarMutex(); }
 	}	
 	/*
 	 *  ####################### MONITOR SIN TIEMPO ########################

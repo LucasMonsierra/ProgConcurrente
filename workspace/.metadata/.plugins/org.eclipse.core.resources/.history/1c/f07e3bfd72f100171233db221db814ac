@@ -20,17 +20,18 @@ public class GestorMonitor {
 		disp = 0;
 	}
 	
-	public void dispararTransicion(int t) throws InterruptedException {
-
+	public void dispararTransicion(int t) {
+		System.out.print("Permisos0: " + mutex.permisos() + "\n");
 			mutex.adquirirMutex();
-			while (!rdp.disparar(t)) {				
+			while (!rdp.disparar(t)) {
 				mutex.liberarMutex();
-				if (rdp.getVentana() > 0 && rdp.getVectorSencibilizadas().getValor(0, t) == 1)
-					Thread.sleep(rdp.getVentana());
+				if (rdp.getVentana() > 0 && rdp.getVectorSencibilizadas().getValor(0, t) == 1) {
+					try { Thread.sleep(rdp.getVentana()); }
+					catch (InterruptedException e) { e.printStackTrace(); } }
 				else
-					colas.adquirirCola(t);
+					{ colas.adquirirCola(t); }
 			}
-				
+			System.out.print("Permisos1: " + mutex.permisos() + "\n");
 			System.out.print(disp++ + ". T: " + t +"\n");
 			Matriz vs = rdp.getVectorSencibilizadas();
 			Matriz vc = colas.quienesEstan();
@@ -38,9 +39,12 @@ public class GestorMonitor {
 			System.out.print("vc: " + vc.toString());
 
 			m = vs.and(vc);
+			System.out.print("m : " + m.toString());
+			System.out.print("Permisos1: " + mutex.permisos() + "\n");
+			System.out.print("Tamaño: " + mutex.size() + "\n");
 			if (!m.esCero()) { colas.liberarHilo(politicas.cual(m)); }
-			
-			mutex.liberarMutex();
+			else { mutex.liberarMutex(); System.out.print("Permisos2: " + mutex.permisos() + "\n"); }
+			System.out.print("Permisos3: " + mutex.permisos() + "\n");
 	}	
 	/*
 	 *  ####################### MONITOR SIN TIEMPO ########################
