@@ -44,7 +44,7 @@ public class Main {
 		
 		Lector l = new Lector();
 		HashMap<String, Matriz> hash = l.cargarDatos();
-		System.out.print("T-INVARIANTES:\n" + hash.get("tinvariantes").toString() + "\nP-INVARIANTES:\n" + hash.get("pinvariantes").toString() + "\nRESULTADO:\n" + hash.get("pinvaresult").toString() + "\n" );
+		System.out.print("T-INVARIANTES: " + hash.get("tinvariantes").toString() + "\nP-INVARIANTES: " + hash.get("pinvariantes").toString() + "\nRESULTADO: " + hash.get("pinvaresult").toString() + "\n" );
 		/*
 		h1.start();
 		h2.start();

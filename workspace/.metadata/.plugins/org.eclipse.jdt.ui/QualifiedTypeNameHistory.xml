@@ -18,7 +18,6 @@
 <fullyQualifiedTypeName name="archivos.Matriz"/>
 <fullyQualifiedTypeName name="com.google.common.base.Objects"/>
 <fullyQualifiedTypeName name="archivos.Escritor"/>
-<fullyQualifiedTypeName name="archivos.Lector"/>
 <fullyQualifiedTypeName name="jxl.Workbook"/>
 <fullyQualifiedTypeName name="jxl.read.biff.BiffException"/>
 <fullyQualifiedTypeName name="jxl.Sheet"/>
@@ -29,4 +28,6 @@
 <fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="java.util.concurrent.BlockingQueue"/>
 <fullyQualifiedTypeName name="java.util.concurrent.ArrayBlockingQueue"/>
+<fullyQualifiedTypeName name="archivos.Lector"/>
+<fullyQualifiedTypeName name="org.junit.Before"/>
 </qualifiedTypeNameHistroy>

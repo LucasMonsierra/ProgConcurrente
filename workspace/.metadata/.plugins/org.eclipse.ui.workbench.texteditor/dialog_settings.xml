@@ -8,6 +8,7 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="getVenana"/>
 			<item value="alfa"/>
 			<item value="alga"/>
 			<item value="tiempoSensibilizada"/>
@@ -15,7 +16,6 @@
 			<item value="done"/>
 			<item value="donde"/>
 			<item value="holis"/>
-			<item value="sTexto"/>
 		</list>
 		<list key="replacehistory">
 		</list>

@@ -19,38 +19,25 @@ public class TestPInvariantes {
 	private static HashMap<String, Matriz> hash;
 	
 	@BeforeClass 
-	public static void test() throws Exception {
+	public static void lectura() throws Exception {
 		marcados = lector.leerLog("Marcados.txt");
 		hash = lector.cargarDatos();
 	}
 	
 	@Before
-	public void carga() throws Exception {
+	public static void carga() throws Exception {
 		pinvariantes = hash.get("pinvariantes");
 		resultado = hash.get("pinvaresult");
 	}
 
+	
 	@Test
 	public void pinvariantes() {
 		
-		int expected = 0;
+		//for ( int i = 0 ; i < marcados.getColumnas() ; i++ ) {
+			
+			
 		
-		//Recorre las filas de la matriz MARCADOS
-		for ( int i = 0 ; i < marcados.getFilas() ; i++ ) {
-			//Recorre las filas de la matriz PINVARIANTES
-			for ( int j = 0 ; j < pinvariantes.getFilas() ; j++ ) {
-				//Recorre las columnas de la matriz PINVARIANTES
-				for ( int k = 0 ; k < pinvariantes.getColumnas() ; k++ ) {
-					//Chequeo qué valor de la fila de PINVARIANTES es DISTINTO de 0
-					if ( pinvariantes.getValor(j, k) != 0 ) {
-						//Con los valores de la columna obtengo el valor de la plaza en la matriz MARCADOS y lo sumo
-						expected = expected + marcados.getValor(i, k);
-					}
-				}//Salgo del FOR que hace la carga de la variable EXPECTED
-				Assert.assertEquals(expected, resultado.getValor(0, j));
-				expected = 0;
-			}
-		}
 	}
 
 	/*

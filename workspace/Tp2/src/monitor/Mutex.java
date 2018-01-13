@@ -27,14 +27,6 @@ public class Mutex {
 			e.printStackTrace();
 		}
 	}
-	
-	public int permisos() {
-		return mutex.remainingCapacity();
-	}
-	
-	public int size () {
-		return mutex.size();
-	}
 /*
 	private Semaphore mutex;
 	

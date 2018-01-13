@@ -30,6 +30,7 @@ public class TestPInvariantes {
 		resultado = hash.get("pinvaresult");
 	}
 
+	
 	@Test
 	public void pinvariantes() {
 		
@@ -51,6 +52,8 @@ public class TestPInvariantes {
 				expected = 0;
 			}
 		}
+			
+		
 	}
 
 	/*

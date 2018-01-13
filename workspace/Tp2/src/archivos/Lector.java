@@ -185,10 +185,10 @@ public class Lector {
 		String[] datos = texto.split(" ");
 		
 		int r = 0;
-		Matriz resultados = new Matriz(hash.get("pinvariantes").getFilas(),1);
+		Matriz resultados = new Matriz(1,hash.get("pinvariantes").getFilas());
 		for (int i = 0 ; i < datos.length ; i++) {
 			if (datos[i].matches("\\d*")) {
-				resultados.setValor(r, 0, Integer.parseInt(datos[i]));
+				resultados.setValor(0, r, Integer.parseInt(datos[i]));
 				r++;
 			}
 		}
