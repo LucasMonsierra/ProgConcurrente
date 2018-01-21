@@ -49,7 +49,7 @@ public class RdP {
 			}
 			if (f > 0) { sencib.setValor(0, i, 0); }
 		}
-		return sencib;		
+		return sencib;
 	}
 	
 	public boolean estaSencibilizada(int t) {
