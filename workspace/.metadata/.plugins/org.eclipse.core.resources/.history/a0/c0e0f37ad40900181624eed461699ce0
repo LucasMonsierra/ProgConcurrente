@@ -1,0 +1,41 @@
+package test;
+
+import archivos.Lector;
+import archivos.Matriz;
+import monitor.GestorMonitor;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.util.HashMap;
+
+import org.junit.Assert;
+import org.junit.Before;
+
+
+public class TestUnitario {
+	
+	private static Matriz marcadoInicial, marcado;
+	private static HashMap<String, Matriz> hash;
+	private static Lector lector;
+	private static GestorMonitor monitor;
+
+
+	@BeforeClass
+	public static void test() throws Exception {
+		lector = new Lector();
+		monitor = new GestorMonitor();
+		hash = lector.cargarDatos();
+	}
+
+	@Before
+	public void carga() {
+		marcadoInicial = hash.get("marcado");
+	}
+
+	@Test
+	public void testunitario() {
+		
+	}
+
+}

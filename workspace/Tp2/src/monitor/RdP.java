@@ -10,7 +10,7 @@ public class RdP {
 	
 	private int TRANS;
 	private int PLAZAS;
-	private int ventana;
+	private long ventana;
 	private long[] timestamp;
 	private Matriz Marcado;
 	private Matriz MatrizI;
@@ -100,7 +100,7 @@ public class RdP {
 		}	
 	}
 	
-	public int getVentanaTiempo(int t) {
+	public long getVentanaTiempo(int t) {
 		
 		long tiempo = System.currentTimeMillis();
 		
@@ -118,7 +118,7 @@ public class RdP {
 		int a = alfa.getValor(0,trans);
 		int b = beta.getValor(0,trans);
 		long t = tiempo - timestamp[trans];
-		
+				
 		if (beta.esCero()) {
 			if (a > t) return 0;
 			else return 1;
@@ -130,9 +130,9 @@ public class RdP {
 		}
 	}
 	
-	public int aDormir(int trans, long tiempo) {
+	public long aDormir(int trans, long tiempo) {
 		int a = alfa.getValor(0,trans);
-		return (int) (a - (tiempo - timestamp[trans]));
+		return (a - (tiempo - timestamp[trans]));
 	}
 	
 	public boolean esTransConTiempo(int t) {
@@ -152,7 +152,15 @@ public class RdP {
 		return MatrizI.getColumnas();
 	}
 
-	public int getVentana() {
+	public long getVentana() {
 		return ventana;
+	}
+	
+	public Matriz getMarcado() {
+		return Marcado;
+	}
+	
+	public void setMarcado(Matriz nuevoMarcado) {
+		Marcado = nuevoMarcado;
 	}
 }

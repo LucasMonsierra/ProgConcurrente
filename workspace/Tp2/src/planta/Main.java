@@ -1,10 +1,10 @@
 package planta;
 
-import java.util.HashMap;
+//import java.util.HashMap;
+//import archivos.Lector;
+//import archivos.Matriz;
 
 import archivos.Escritor;
-import archivos.Lector;
-import archivos.Matriz;
 import monitor.GestorMonitor;
 
 public class Main {
@@ -41,11 +41,7 @@ public class Main {
 		Thread h7 = new Thread(lb);
 		Thread h8 = new Thread(lc1);
 		Thread h9 = new Thread(lc2);
-		
-		Lector l = new Lector();
-		HashMap<String, Matriz> hash = l.cargarDatos();
-		System.out.print("T-INVARIANTES:\n" + hash.get("tinvariantes").toString() + "\nP-INVARIANTES:\n" + hash.get("pinvariantes").toString() + "\nRESULTADO:\n" + hash.get("pinvaresult").toString() + "\n" );
-		/*
+
 		h1.start();
 		h2.start();
 		h3.start();
@@ -64,7 +60,7 @@ public class Main {
 		} 
 		catch (InterruptedException e) {
 			e.printStackTrace(); 
-		}*/
+		}
 	}
 
 }
