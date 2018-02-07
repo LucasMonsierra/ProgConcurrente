@@ -1,10 +1,5 @@
 package planta;
 
-//import java.util.HashMap;
-//import archivos.Lector;
-//import archivos.Matriz;
-
-import archivos.Escritor;
 import monitor.GestorMonitor;
 
 public class Main {
@@ -51,16 +46,6 @@ public class Main {
 		h7.start();
 		h8.start();
 		h9.start();
-
-		try {
-			Thread.sleep(20000);
-			Escritor.getInstance().imprimir(Escritor.getInstance().getMarcados(), "Marcados.txt");
-			Escritor.getInstance().imprimir(Escritor.getInstance().getPiezasHechas(), "Piezas.txt");
-			System.out.print("Done!");
-		} 
-		catch (InterruptedException e) {
-			e.printStackTrace(); 
-		}
 	}
 
 }

@@ -5,64 +5,59 @@ import archivos.*;
 public class Politicas {
 	
 	private static Lector lector = new Lector();
-	private int a, b, c;
-	
-	public Politicas () {
-		
-		Matriz porcentajes = lector.leerPorcentajes();
-		a = porcentajes.getValor(0, 0);
-		b = porcentajes.getValor(0, 1);
-		c = porcentajes.getValor(0, 2);
-	}
-	
-	
-	public int politica1(Matriz m) {
-		int t = 0, may = 0;
-		int[] politica1 = { 10,  3,  3,  3,  3,  3,  3,  3,  3,  1,  10,  3,  3,  1,  15,  13,  13, 13,  13,  5};
-						//{t10,t11,t12,t13,t14,t15,t16,t17,t18,t19, t20,t21,t22,t23, t30, t31, t32,t33, t34,t35} 
-		for (int i = 0; i < m.getColumnas() ; i++) {
-			if (m.getValor(0, i) == 1 && politica1[i] > may ) { may = politica1[i]; t = i; }
-		}
-		return t;
-	}
 	
 	public int cual(Matriz m) {
 		
-		double porcentajePiezasA = calcularPorcentaje(Escritor.getInstance().a, Escritor.getInstance().a + Escritor.getInstance().b + Escritor.getInstance().c);
-		double porcentajePiezasB = calcularPorcentaje(Escritor.getInstance().b, Escritor.getInstance().a + Escritor.getInstance().b + Escritor.getInstance().c);
-		double porcentajePiezasC = calcularPorcentaje(Escritor.getInstance().c, Escritor.getInstance().a + Escritor.getInstance().b + Escritor.getInstance().c);
+		Matriz porcentajes = lector.leerPorcentajes();
+		Matriz politica = new Matriz(1, m.getColumnas());
+		Matriz piezas = piezasHechas();
+		double[] porcentajesHechos = new double[porcentajes.getColumnas()];
+		
+		for ( int i = 0 ; i < porcentajes.getColumnas() ; i++ ) {
+			porcentajesHechos[i] = calcularPorcentaje(piezas.getValor(0, i), piezas.getValor(0, 3));
+		}
 
-		Matriz politica2 = new Matriz(1, m.getColumnas());
 		
-		if (porcentajePiezasA < a) {
+		if (porcentajesHechos[0] < porcentajes.getValor(0, 0)) {
 			for ( int i = 0 ; i < 10 ; i++ ) {
-				politica2.setValor(0, i, i + 15);
+				politica.setValor(0, i, i + 15);
 			}
 		}
 		
-		if (porcentajePiezasB < b) {
+		if (porcentajesHechos[1] < porcentajes.getValor(0, 1)) {
 			for ( int i = 10 ; i < 14 ; i++ ) {
-				politica2.setValor(0, i, i);
+				politica.setValor(0, i, i);
 			}
 		}
 		
-		if (porcentajePiezasC < c) {
-			for ( int i = 14 ; i < politica2.getColumnas() ; i++ ) {
-				politica2.setValor(0, i, i);
+		if (porcentajesHechos[2] < porcentajes.getValor(0, 2)) {
+			for ( int i = 14 ; i < politica.getColumnas() ; i++ ) {
+				politica.setValor(0, i, i);
 			}
 		}
 		
 		int t = 0, may = 0;
 		for (int i = 0; i < m.getColumnas() ; i++) {
-			if (m.getValor(0, i) == 1 && politica2.getValor(0, i) >= may ) { 
-				may = politica2.getValor(0, i); 
+			if (m.getValor(0, i) == 1 && politica.getValor(0, i) >= may ) { 
+				may = politica.getValor(0, i); 
 				t = i; 
-				}
+			}
 		}
 		return t;
 	}
 
 	public double calcularPorcentaje(double piezas, double total) {
 		return (piezas/total)*100;
+	}
+	
+	public Matriz piezasHechas () {
+		Matriz piezas = new Matriz(1, 4);
+		piezas.setValor(0, 0, ((System.getProperty("a") != null) ? Integer.parseInt(System.getProperty("a")) : 0 ));
+		piezas.setValor(0, 1, ((System.getProperty("b") != null) ? Integer.parseInt(System.getProperty("b")) : 0 ));
+		piezas.setValor(0, 2, ((System.getProperty("c") != null) ? Integer.parseInt(System.getProperty("c")) : 0 ));
+		for ( int i = 0 ; i < piezas.getColumnas() - 1 ; i++ ) {
+			piezas.setValor(0, 3, piezas.getValor(0, 3) + piezas.getValor(0, i));
+		}
+		return piezas;
 	}
 }

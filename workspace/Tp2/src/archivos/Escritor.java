@@ -13,47 +13,31 @@ import com.google.common.base.Objects;
 
 public class Escritor {
 	
-	private static Escritor esc = null;
 	private String sUbicacion = System.getProperty("user.home") + "\\Log\\";
-	public String marcados = "";
-	public int a = 0;
-	public int b = 0;
-	public int c = 0;
+	private String log = "";
+	private boolean flag = true;
 	
-	private Escritor() {
+	public Escritor() {
 		File file = new File(sUbicacion);
-		try {
-			FileUtils.cleanDirectory(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		try { FileUtils.cleanDirectory(file); }
+		catch (IOException e) { e.printStackTrace(); }
 	}
 	
-	public static synchronized Escritor getInstance() {
-		if (esc == null) {
-			esc = new Escritor();
-		}
-		return esc;
-	}
 	
-	// GUARDA EN UN STRING EL LOS DISTINTOS MARCADOS LIMPIOS DE CARACTERES NO DESEADOS
+	// GUARDA EN UN STRING EL LOS DISTINTOS LOG DE EJECUCIÓN DEL TEST DE INVARIANTE DE PLAZAS
 	public void guardar(String texto) {
-		if (!Objects.equal(null, texto))
-			marcados = marcados.concat(texto.trim() + "\r\n");
+		if (!Objects.equal(null, texto)) { log = log.concat(texto + "\r\n"); }
 	}
 	
-	// GUARDA EN CADA ENTERO LA CANTIDAD DE PIEZAS QUE SE HIZO DE CADA UNA
-	public void guardarPiezasHechas(int t) {
-		switch (t) {
-		case 9:
-			a++; break;
-		case 13:
-			b++; break;
-		case 19:
-			c++; break;
+	public void generarLogs(int a, int b, int c) {
+		if (flag) {
+			imprimir(getPiezasHechas(a, b, c), "Piezas");
+			imprimir(log, "TestLog");
+			log = ""; flag = false;
 		}
 	}
-	
+
+
 	// GUARDA EN UN ARCHIVO EL STRING QUE TIENE TODOS LOS MARCADOS SIN CARACTERES ESPECIALES
 	public void imprimir(String texto, String nombre) {
 		File fichero = new File(sUbicacion + nombre);
@@ -70,11 +54,11 @@ public class Escritor {
 	}
 	
 	//RETORNA EL STRING QUE CONTIENE TODOS LOS MARCADOS
-	public String getMarcados () {
-		return marcados;
+	public String getlog () {
+		return log;
 	}
 	
-	public String getPiezasHechas () {
+	public String getPiezasHechas (int a, int b, int c) {
 		return "Piezas A: " + a + " Piezas B: " + b + " Piezas C: " + c;
 	}
 }

@@ -1,0 +1,57 @@
+package test;
+
+import archivos.Lector;
+import archivos.Matriz;
+import monitor.RdP;
+
+import java.util.HashMap;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.Assert;
+
+public class TestPInvariantes {
+
+	private static Matriz pinvariantes, resultado, marcado;
+	
+	public static void prepare(Matriz marcado, Matriz pinvariantes, Matriz resultado) {
+		TestPInvariantes.pinvariantes = pinvariantes;
+		TestPInvariantes.resultado = resultado;
+		TestPInvariantes.marcado = marcado;
+    }
+	
+	@Before
+	public void carga() {
+		marcado = marcado.transpuesta();
+	}
+	
+	@Test
+	public void pinvariantes() {
+		
+		System.out.print("Oh yes: \n");
+		
+		
+		//if (pinvariantes.getColumnas() == producto.getFilas() ) {
+			//System.out.print("Trans: "); }
+	}
+
+
+	/*
+		//Recorre las filas de la matriz MARCADOS
+		for ( int i = 0 ; i < marcados.getFilas() ; i++ ) {
+			//Recorre las filas de la matriz PINVARIANTES
+			for ( int j = 0 ; j < pinvariantes.getFilas() ; j++ ) {
+				//Recorre las columnas de la matriz PINVARIANTES
+				for ( int k = 0 ; k < pinvariantes.getColumnas() ; k++ ) {
+					//Chequeo qué valor de la fila de PINVARIANTES es DISTINTO de 0
+					if ( pinvariantes.getValor(j, k) != 0 ) {
+						//Con los valores de la columna obtengo el valor de la plaza en la matriz MARCADOS y lo sumo
+						expected = expected + marcados.getValor(i, k);
+					}
+				}//Salgo del FOR que hace la carga de la variable EXPECTED
+				Assert.assertEquals(expected, resultado.getValor(0, j));
+				expected = 0;
+			}
+		}*/	
+}

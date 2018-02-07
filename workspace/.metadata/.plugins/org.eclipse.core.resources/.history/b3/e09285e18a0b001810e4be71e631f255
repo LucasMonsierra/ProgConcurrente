@@ -1,0 +1,26 @@
+package test;
+
+import java.util.HashMap;
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+
+import archivos.Matriz;
+
+public class JunitCore {
+
+	private static JUnitCore jUnitCore;
+	private static HashMap<String, Matriz> hash;
+	
+	public JunitCore(HashMap<String, Matriz> hash) {
+		JunitCore.hash = hash;
+		jUnitCore = new JUnitCore();
+	}
+
+	public String testearMarcado() {
+		Result result = jUnitCore.run(TestPInvariantes.class);
+		String resultado = "Test ran: " + result.getRunCount() + ", Failed: " + result.getFailureCount() + "\n";
+	    System.out.printf(resultado);
+		return resultado;
+	}
+}

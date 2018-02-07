@@ -1,0 +1,67 @@
+package test;
+
+import archivos.Lector;
+import archivos.Matriz;
+
+import java.util.HashMap;
+
+import org.junit.BeforeClass;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.Assert;
+
+
+public class TestPInvariantes {
+
+	private static HashMap<String, Matriz> hash;
+	private static Lector lector;
+	private static Matriz pinvariantes, resultado, marcado;
+
+	public TestPInvariantes(Matriz pinvariantes, Matriz resultado) {
+		super();
+		this.pinvariantes = pinvariantes;
+		this.resultado = resultado;
+		System.out.print(this.pinvariantes.toString());
+	}
+	
+	@Before
+	public void carga() throws Exception {
+		marcado = new Matriz(1, pinvariantes.getColumnas());//.toMatriz(System.getProperty("marcado"));
+		System.out.print("puto: \n");
+	}
+	
+	@Test
+	public void pinvariantes() {
+		
+		System.out.print("Oh yes: \n");
+
+		//System.out.print("String: " + marcado.toString());
+
+		//marcado = marcado.toMatriz(asd);
+		//System.out.print("Matriz: " + marcado.toString());
+		
+		
+		//Matriz producto = marcado.transpuesta();
+		//if (pinvariantes.getColumnas() == producto.getFilas() ) {
+			//System.out.print("Trans: "); }
+	}
+
+
+	/*
+		//Recorre las filas de la matriz MARCADOS
+		for ( int i = 0 ; i < marcados.getFilas() ; i++ ) {
+			//Recorre las filas de la matriz PINVARIANTES
+			for ( int j = 0 ; j < pinvariantes.getFilas() ; j++ ) {
+				//Recorre las columnas de la matriz PINVARIANTES
+				for ( int k = 0 ; k < pinvariantes.getColumnas() ; k++ ) {
+					//Chequeo qué valor de la fila de PINVARIANTES es DISTINTO de 0
+					if ( pinvariantes.getValor(j, k) != 0 ) {
+						//Con los valores de la columna obtengo el valor de la plaza en la matriz MARCADOS y lo sumo
+						expected = expected + marcados.getValor(i, k);
+					}
+				}//Salgo del FOR que hace la carga de la variable EXPECTED
+				Assert.assertEquals(expected, resultado.getValor(0, j));
+				expected = 0;
+			}
+		}*/	
+}
