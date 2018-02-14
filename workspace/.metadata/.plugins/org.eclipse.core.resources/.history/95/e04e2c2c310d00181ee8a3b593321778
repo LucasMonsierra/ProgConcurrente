@@ -1,8 +1,0 @@
-package planta;
-
-public class Maquina1 {
-	
-	public void workLineaA () {
-		
-	}
-}

@@ -1,9 +1,0 @@
-package archivos;
-
-import java.util.logging.Logger;
-
-public class Log {
-
-	Log logger = Log.getLogger(Log.GLOBAL_LOGGER_NAME);
-
-}
