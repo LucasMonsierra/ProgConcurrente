@@ -1,0 +1,642 @@
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+
+buildscript {
+	repositories {
+		// mavenLocal()
+		maven { url 'https://plugins.gradle.org/m2/' }
+		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+		maven { url 'http://repo.spring.io/plugins-release' }
+	}
+	dependencies {
+		classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.5.1'
+		classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+		classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+		classpath 'org.ajoberstar:gradle-git-publish:0.3.0'
+		classpath 'org.ajoberstar:gradle-git:1.7.2'
+		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+	}
+}
+
+plugins {
+	id 'com.gradle.build-scan' version '1.9'
+	id 'net.nemerosa.versioning' version '2.6.1'
+}
+
+buildScan {
+	licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+	licenseAgree = 'yes'
+}
+
+
+def buildTimeAndDate = OffsetDateTime.now()
+ext {
+	// Generate JAR manifest only if code was compiled or recompiled;
+	// otherwise the junitPlatformTest task will always be executed even if
+	// no code changes were made. The reason is that the generation of
+	// the buildDate and buildTime causes JAR manifests to be modified
+	// which triggers unnecessary rebuilding of the dependent JARs.
+	generateManifest = false
+	buildDate = DateTimeFormatter.ISO_LOCAL_DATE.format(buildTimeAndDate)
+	buildTime = DateTimeFormatter.ofPattern('HH:mm:ss.SSSZ').format(buildTimeAndDate)
+	buildRevision = versioning.info.commit
+	builtByValue = project.hasProperty('builtBy') ? project.builtBy : project.defaultBuiltBy
+
+	platformProjects = [
+		'junit-platform-commons',
+		'junit-platform-console',
+		'junit-platform-console-standalone',
+		'junit-platform-engine',
+		'junit-platform-gradle-plugin',
+		'junit-platform-launcher',
+		'junit-platform-runner',
+		'junit-platform-suite-api',
+		'junit-platform-surefire-provider'
+	]
+
+	jupiterProjects = [
+		'junit-jupiter-api',
+		'junit-jupiter-engine',
+		'junit-jupiter-migrationsupport',
+		'junit-jupiter-params'
+	]
+
+	vintageProjects = [
+		'junit-vintage-engine'
+	]
+
+	mavenizedProjects = platformProjects + jupiterProjects + vintageProjects
+
+	licenses = [
+		'EPL-2.0': [
+			name: 'Eclipse Public License v2.0',
+			url: 'http://www.eclipse.org/legal/epl-v20.html',
+			headerFile: 'eclipse-public-license-2.0.java'
+		],
+		'Apache-2.0': [
+			name: 'The Apache License, Version 2.0',
+			url: 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+			headerFile: 'apache-license-2.0.java'
+		]
+	]
+
+	licenseOf = { project -> licenses[
+		project.name == 'junit-platform-surefire-provider'
+			? 'Apache-2.0'
+			: 'EPL-2.0'
+		]
+	}
+
+	cloverTestProjects = [
+		'junit-jupiter-engine',
+		'junit-jupiter-migrationsupport',
+		'junit-jupiter-params',
+		'junit-vintage-engine',
+		'junit-platform-surefire-provider',
+		'platform-tests'
+	]
+}
+
+allprojects { subproj ->
+
+	apply plugin: 'java-library'
+	apply plugin: 'kotlin'
+	apply plugin: 'eclipse'
+	apply plugin: 'idea'
+	apply plugin: 'com.diffplug.gradle.spotless'
+	apply plugin: 'checkstyle'
+	apply plugin: 'com.github.ben-manes.versions' // gradle dependencyUpdates
+	apply from: "$rootDir/gradle/degraph.gradle"
+
+	repositories {
+		// mavenLocal()
+		mavenCentral()
+		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+	}
+
+	dependencies {
+		// The following dependency is only necesssary to avoid compiler warnings about
+		// not being able to find the @API annotation when compiling test sources.
+		testCompileOnly("org.apiguardian:apiguardian-api:${apiGuardianVersion}")
+	}
+
+	tasks.withType(Test) { task ->
+		task.testLogging.exceptionFormat = 'full'
+	}
+
+	tasks.withType(JavaCompile) {
+		sourceCompatibility = rootProject.sourceCompatibility
+		targetCompatibility = rootProject.targetCompatibility
+		options.encoding = 'UTF-8'
+	}
+
+	// See: http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html#BHCJCABJ
+	compileJava.options*.compilerArgs = [
+		'-Xlint:cast',
+		'-Xlint:classfile',
+		'-Xlint:deprecation',
+		'-Xlint:dep-ann',
+		'-Xlint:divzero',
+		'-Xlint:empty',
+		'-Xlint:fallthrough',
+		'-Xlint:finally',
+		'-Xlint:overrides',
+		'-Xlint:path',
+		'-Xlint:processing',
+		'-Xlint:rawtypes',
+		'-Xlint:serial',
+		'-Xlint:static',
+		'-Xlint:try',
+		'-Xlint:unchecked',
+		'-Xlint:varargs',
+		'-Xlint:-options',
+		'-Werror'
+	]
+
+	// See: http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html#BHCJCABJ
+	compileTestJava.options*.compilerArgs = [
+		'-Xlint:cast',
+		'-Xlint:classfile',
+		'-Xlint:deprecation',
+		'-Xlint:dep-ann',
+		'-Xlint:divzero',
+		'-Xlint:empty',
+		'-Xlint:fallthrough',
+		'-Xlint:finally',
+		'-Xlint:path',
+		'-Xlint:processing',
+		'-Xlint:rawtypes',
+		'-Xlint:serial',
+		'-Xlint:static',
+		'-Xlint:try',
+		'-Xlint:unchecked',
+		'-Xlint:varargs',
+		'-Xlint:-options',
+		'-Xlint:-overrides'
+	]
+
+	compileTestJava {
+		options.encoding = 'UTF-8'
+		options.compilerArgs += '-parameters'
+	}
+
+	checkstyle {
+		toolVersion = '7.6'
+	}
+	checkstyleMain {
+		configFile = rootProject.file('src/checkstyle/checkstyleMain.xml')
+	}
+	checkstyleTest {
+		configFile = rootProject.file('src/checkstyle/checkstyleTest.xml')
+	}
+
+	if (project.hasProperty('enableClover') && subproj.name != "documentation") {
+
+		configurations {
+			clover
+		}
+
+		dependencies {
+			clover 'com.atlassian.clover:clover:4.1.2'
+		}
+
+		ext.cloverDir = file("$buildDir/clover")
+		ext.cloverInitstring = "$cloverDir/clover.db"
+
+		def instrumentedJavaSourcesDir = file("$cloverDir/instrumentedSources/java")
+
+		task cloverTaskdef {
+			def cloverLicensePath = (project.hasProperty('clover.license.path')
+					? project.property('clover.license.path') : rootProject.file('clover.license').absolutePath)
+			ant.taskdef(resource:'cloverlib.xml', classpath: configurations.clover.asPath)
+			ant.property(name: 'clover.license.path', value: cloverLicensePath)
+		}
+
+		task cloverInstrumentJava(dependsOn: cloverTaskdef) {
+			outputs.dir cloverDir
+			onlyIf { sourceSets.main.allJava.any { it.exists() } }
+			doLast {
+				ant.'clover-instr'(
+					initstring: cloverInitstring,
+					recordTestResults: false,
+					destdir: instrumentedJavaSourcesDir,
+					source: compileJava.sourceCompatibility) {
+					sourceSets.main.allJava.addToAntBuilder(ant, 'fileset', FileCollection.AntType.FileSet)
+				}
+			}
+		}
+
+		// Disable javac warnings when executing Clover
+		compileJava.options*.compilerArgs = ['-Xlint:none']
+		compileTestJava.options*.compilerArgs = ['-Xlint:none']
+
+		compileJava.source = instrumentedJavaSourcesDir
+		sourceSets.main.compileClasspath += configurations.clover
+		sourceSets.test.compileClasspath += configurations.clover
+		sourceSets.test.runtimeClasspath += configurations.clover
+		compileJava.dependsOn cloverInstrumentJava
+	}
+}
+
+subprojects { subproj ->
+	if (subproj.name in mavenizedProjects) {
+		apply plugin: 'maven'
+		apply plugin: 'propdeps'
+		apply plugin: 'propdeps-maven'
+		apply plugin: 'propdeps-idea'
+		apply plugin: 'propdeps-eclipse'
+		apply plugin: 'signing'
+
+		if (subproj.name in platformProjects) {
+			subproj.group = platformGroup
+			subproj.version = platformVersion
+		}
+		else if (subproj.name in vintageProjects) {
+			subproj.group = vintageGroup
+			subproj.version = vintageVersion
+		}
+
+		dependencies {
+			// The 'optional' configuration is provided by the propdeps-plugin and allows
+			// us to declare dependencies that get flagged as optional in the generated
+			// Maven POMs.
+			optional("org.apiguardian:apiguardian-api:${apiGuardianVersion}")
+		}
+
+		javadoc {
+			options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PROTECTED
+			options.author = true
+			options.header = project.name
+			options.use = true
+			options.addStringOption('Xdoclint:html,syntax', '-quiet')
+			options.encoding = 'UTF-8'
+		}
+
+		task sourcesJar(type: Jar, dependsOn: classes) {
+			classifier = 'sources'
+			from sourceSets.main.allSource
+			duplicatesStrategy = 'exclude'
+		}
+
+		task javadocJar(type: Jar) {
+			classifier = 'javadoc'
+			from javadoc
+		}
+
+		artifacts {
+			archives sourcesJar
+			archives javadocJar
+		}
+
+		tasks.withType(Jar) {
+			from(project.projectDir) {
+				include 'LICENSE.md'
+				into 'META-INF'
+			}
+			from(project.rootDir) {
+				include 'LICENSE-notice.md'
+				into 'META-INF'
+			}
+		}
+
+		def signArtifacts = !project.version.contains('SNAPSHOT')
+
+		afterEvaluate {
+			if (signArtifacts && uploadArchives.enabled) {
+				signing {
+					sign configurations.archives
+				}
+			}
+		}
+
+		uploadArchives {
+
+			dependsOn check
+
+			repositories {
+				mavenDeployer {
+
+					if (signArtifacts) {
+						beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+					}
+
+					def ossrhUsername = rootProject.hasProperty('ossrhUsername') ? rootProject.ossrhUsername : ''
+					def ossrhPassword = rootProject.hasProperty('ossrhPassword') ? rootProject.ossrhPassword : ''
+
+					repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+						authentication(userName: ossrhUsername, password: ossrhPassword)
+					}
+
+					snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+						authentication(userName: ossrhUsername, password: ossrhPassword)
+					}
+
+					def projectLicense = licenseOf(project)
+
+					pom.project {
+						name "${project.group}:${project.name}"
+						packaging 'jar'
+						description "Module \"${project.name}\" of JUnit 5."
+						url 'http://junit.org/junit5/'
+
+						scm {
+							connection 'scm:git:git://github.com/junit-team/junit5.git'
+							developerConnection 'scm:git:git://github.com/junit-team/junit5.git'
+							url 'https://github.com/junit-team/junit5'
+						}
+
+						licenses {
+							license {
+								name projectLicense['name']
+								url projectLicense['url']
+							}
+						}
+
+						developers {
+							developer {
+								id 'bechte'
+								name 'Stefan Bechtold'
+								email 'stefan.bechtold@me.com'
+							}
+							developer {
+								id 'jlink'
+								name 'Johannes Link'
+								email 'business@johanneslink.net'
+							}
+							developer {
+								id 'marcphilipp'
+								name 'Marc Philipp'
+								email 'mail@marcphilipp.de'
+							}
+							developer {
+								id 'mmerdes'
+								name 'Matthias Merdes'
+								email 'Matthias.Merdes@heidelberg-mobil.com'
+							}
+							developer {
+								id 'sbrannen'
+								name 'Sam Brannen'
+								email 'sam@sambrannen.com'
+							}
+							developer {
+								id 'sormuras'
+								name 'Christian Stein'
+								email 'sormuras@gmail.com'
+							}
+						}
+					}
+
+					pom.whenConfigured { p ->
+						p.dependencies = p.dependencies.findAll { dep -> dep.scope != 'test' }
+					}
+				}
+			}
+		}
+	} else {
+		jar.enabled = false
+		javadoc.enabled = false
+		uploadArchives.enabled = false
+	}
+
+	def normalizeVersion = { versionLiteral ->
+		try {
+			(versionLiteral =~ /(\d+)\.(\d+)\.(\d+).*/)[0][1..3].join('.')
+		} catch(x) {
+			throw new GradleException("Version '$versionLiteral' does not match version pattern, e.g. 5.0.0-QUALIFIER")
+		}
+	}
+
+	compileJava.doLast {
+		// Enable JAR manifest generation
+		generateManifest = true
+	}
+
+	jar {
+		onlyIf {
+			project.generateManifest
+		}
+		manifest {
+			attributes(
+				'Created-By': "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})".toString(),
+				'Built-By': builtByValue,
+				'Build-Date': buildDate,
+				'Build-Time': buildTime,
+				'Build-Revision': buildRevision,
+				'Specification-Title': project.name,
+				'Specification-Version': normalizeVersion(project.version),
+				'Specification-Vendor': 'junit.org',
+				'Implementation-Title': project.name,
+				'Implementation-Version': project.version,
+				'Implementation-Vendor': 'junit.org'
+			)
+		}
+	}
+
+	spotless {
+		def headerFile = rootProject.file('src/spotless/' + licenseOf(project)['headerFile'])
+		def importOrderConfigFile = rootProject.file('src/eclipse/junit-eclipse.importorder')
+		def javaFormatterConfigFile = rootProject.file('src/eclipse/junit-eclipse-formatter-settings.xml')
+		def groovyFormatterConfigFile = rootProject.file('src/eclipse/junit-greclipse-formatter-settings.prefs')
+
+		java {
+			licenseHeaderFile headerFile, '(package|import) '
+			importOrderFile importOrderConfigFile
+			eclipse().configFile javaFormatterConfigFile
+			if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
+				removeUnusedImports()
+			}
+
+			trimTrailingWhitespace()
+			endWithNewline()
+		}
+
+		groovy {
+			target 'src/**/*.groovy'
+			licenseHeaderFile headerFile, "package "
+			importOrderFile importOrderConfigFile
+			greclipse().configFile javaFormatterConfigFile, groovyFormatterConfigFile
+
+			trimTrailingWhitespace()
+			endWithNewline()
+			replaceRegex 'Empty line between last method and class closure', /\n([\s]+)}\n}\n$/, '\n$1}\n\n}\n'
+			replaceRegex 'Remove line breaks between consecutive closing parentheses', /\)\n[\s]+\)\n/, '))\n'
+		}
+	}
+
+	afterEvaluate {
+		if (project.hasProperty('enableClover') && subproj.name in cloverTestProjects) {
+			cloverAggregateDatabases.dependsOn subproj.tasks.test
+		}
+	}
+
+}
+
+configure(rootProject) {
+	description = 'JUnit 5'
+
+	apply plugin: "org.ajoberstar.git-publish"
+
+	jar.enabled = false
+	uploadArchives.enabled = false
+
+	def ota4jDocVersion = ota4jVersion.contains('SNAPSHOT') ? 'snapshot' : ota4jVersion
+	def apiGuardianDocVersion = apiGuardianVersion.contains('SNAPSHOT') ? 'snapshot' : apiGuardianVersion
+
+	task aggregateJavadocs(type: Javadoc) {
+		group = "Documentation"
+		description = "Generates aggregated Javadocs"
+		title = "JUnit ${version} API"
+
+		dependsOn {
+			subprojects.collect {
+				it.tasks.getByName("jar")
+			}
+		}
+
+		options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PROTECTED
+		options.author = true
+		options.header = rootProject.description
+		options.use = true
+		options.splitIndex = true
+		options.addStringOption('Xdoclint:none', '-quiet')
+		options.encoding = 'UTF-8'
+		options.jFlags '-Xmx1g'
+		options.links(
+			'https://docs.oracle.com/javase/8/docs/api/',
+			"https://ota4j-team.github.io/opentest4j/docs/${ota4jDocVersion}/api/",
+			"https://apiguardian-team.github.io/apiguardian/docs/${apiGuardianDocVersion}/api/"
+		)
+		options.stylesheetFile rootProject.file("src/javadoc/stylesheet.css")
+		options
+			.group("Jupiter", ["org.junit.jupiter.*"])
+			.group("Vintage", ["org.junit.vintage.*"])
+			.group("Platform", ["org.junit.platform.*"])
+
+		source subprojects.collect { project ->
+			project.sourceSets.main.allJava
+		}
+
+		maxMemory = "1024m"
+		destinationDir = new File(buildDir, "docs/javadoc")
+
+		doFirst {
+			classpath = files(subprojects.collect { it.sourceSets.main.compileClasspath })
+		}
+	}
+
+	spotless {
+		format 'misc', {
+			target '**/*.gradle', '**/*.gitignore'
+			indentWithTabs()
+			trimTrailingWhitespace()
+			endWithNewline()
+		}
+		format 'documentation', {
+			target '**/*.adoc', '**/*.md'
+			trimTrailingWhitespace()
+			endWithNewline()
+		}
+	}
+
+	if (project.hasProperty('enableClover')) {
+
+		def cloverAggregationFile = "$cloverDir/coverage.db"
+
+		task cloverAggregateDatabases(dependsOn: cloverTaskdef) {
+			outputs.file cloverAggregationFile
+			doLast {
+				ant.'clover-merge'(initString: cloverAggregationFile) {
+					subprojects.each { project ->
+						def cloverDbFile = project.file(project.cloverInitstring)
+						if(cloverDbFile.exists()) {
+							cloverDb(initString: project.cloverInitstring)
+						}
+					}
+				}
+			}
+		}
+
+		task cloverHtmlReport(dependsOn: cloverAggregateDatabases) {
+			outputs.dir "$buildDir/reports/clover/html"
+			doLast {
+				ant."clover-report"(initString: cloverAggregationFile) {
+					current(outfile: "$buildDir/reports/clover/html", title: rootProject.description, homepage: 'overview') {
+						format(type: 'html')
+					}
+				}
+			}
+		}
+
+		task cloverXmlReport(dependsOn: cloverAggregateDatabases) {
+			outputs.file "$buildDir/reports/clover/clover.xml"
+			doLast {
+				ant."clover-report"(initString: cloverAggregationFile) {
+					current(outfile: "$buildDir/reports/clover/clover.xml") {
+						format(type: 'xml')
+					}
+				}
+			}
+		}
+	}
+
+	def docsVersion = project.version.contains('SNAPSHOT') ? 'snapshot' : project.version
+	def docsDir = new File(buildDir, 'ghpages-docs')
+
+	task prepareDocsForUploadToGhPages(dependsOn: [aggregateJavadocs, ":documentation:asciidoctor"], type: Copy) {
+		outputs.dir docsDir
+
+		from(project(':documentation').buildDir) {
+			include 'asciidoc/**'
+		}
+		from("$buildDir/docs") {
+			include 'javadoc/**'
+			filter { line ->
+				line.startsWith("<head>") ? line.replace("<head>", "<head><link rel=\"icon\" type=\"image/png\" href=\"http://junit.org/junit5/assets/img/junit5-logo.png\">") :
+						line
+			}
+		}
+		into "${docsDir}/${docsVersion}"
+		filesMatching('asciidoc/**') { fileCopyDetails ->
+			fileCopyDetails.path = fileCopyDetails.path.replace('asciidoc/', 'user-guide/')
+		}
+		filesMatching('javadoc/**') { fileCopyDetails ->
+			fileCopyDetails.path = fileCopyDetails.path.replace('javadoc/', 'api/')
+		}
+		includeEmptyDirs = false
+	}
+
+	task createCurrentDocsFolder(dependsOn: prepareDocsForUploadToGhPages, type: Copy) {
+		outputs.dir "${docsDir}/current"
+
+		from "${docsDir}/${docsVersion}"
+		into "${docsDir}/current"
+	}
+
+	createCurrentDocsFolder.onlyIf { project.hasProperty('replaceCurrentDocs') }
+
+	gitPublish {
+		repoUri = 'https://github.com/junit-team/junit5.git'
+		branch = 'gh-pages'
+
+		contents {
+			from docsDir
+			into "docs"
+		}
+
+		preserve { include '**/*' }
+	}
+
+	gitPublishCommit.dependsOn(prepareDocsForUploadToGhPages)
+	gitPublishCommit.dependsOn(createCurrentDocsFolder)
+}
+
+task wrapper(type: Wrapper) {
+	description = 'Generates gradlew and gradlew.bat scripts'
+	gradleVersion = '4.1'
+	/*
+	* Reasoning for using BIN:
+	* https://github.com/junit-team/junit5/pull/1012#discussion_r132061924
+	*/
+	distributionType = Wrapper.DistributionType.BIN
+}

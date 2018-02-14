@@ -1,6 +1,8 @@
 package Planta;
 
 import Gestor.GestorMonitor;
+import recursos.Maquina2;
+import recursos.Robot2;
 
 public class LineaB implements Runnable {
 	/*private Maquina2 m2;

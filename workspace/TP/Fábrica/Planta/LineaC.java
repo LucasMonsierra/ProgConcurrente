@@ -1,6 +1,11 @@
 package Planta;
 
 import Gestor.GestorMonitor;
+import recursos.Maquina3;
+import recursos.Maquina4;
+import recursos.Robot1;
+import recursos.Robot2;
+import recursos.Robot3;
 
 public class LineaC implements Runnable {
 	/*private Maquina3 m3;

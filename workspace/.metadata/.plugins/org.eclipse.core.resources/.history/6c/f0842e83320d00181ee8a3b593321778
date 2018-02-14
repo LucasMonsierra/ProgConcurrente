@@ -1,0 +1,16 @@
+package planta;
+
+import java.util.logging.Logger;
+
+public class Maquina1 {
+	
+	private final static Logger logger = Logger.getGlobal();
+	
+	public Maquina1() {
+		
+	}
+	
+	public void fabricarPiezaA () {
+		logger.info("Máquina 1 fabicando pieza A.\n");
+	}
+}

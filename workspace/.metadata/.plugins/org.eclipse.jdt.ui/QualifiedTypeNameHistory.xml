@@ -26,9 +26,20 @@
 <fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="java.util.concurrent.BlockingQueue"/>
 <fullyQualifiedTypeName name="java.util.concurrent.ArrayBlockingQueue"/>
-<fullyQualifiedTypeName name="archivos.Lector"/>
 <fullyQualifiedTypeName name="org.junit.Before"/>
 <fullyQualifiedTypeName name="monitor.GestorMonitor"/>
-<fullyQualifiedTypeName name="monitor.RdP"/>
+<fullyQualifiedTypeName name="java.util.logging.Logger"/>
+<fullyQualifiedTypeName name="archivos.Lector"/>
 <fullyQualifiedTypeName name="archivos.Matriz"/>
+<fullyQualifiedTypeName name="monitor.RdP"/>
+<fullyQualifiedTypeName name="java.util.logging.SimpleFormatter"/>
+<fullyQualifiedTypeName name="java.util.logging.FileHandler"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="java.util.logging.LogManager"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.util.logging.LogRecord"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.logging.Formatter"/>
 </qualifiedTypeNameHistroy>

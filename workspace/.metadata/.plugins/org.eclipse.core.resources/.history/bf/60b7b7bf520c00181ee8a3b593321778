@@ -1,0 +1,9 @@
+package planta;
+import java.util.concurrent.TimeUnit;
+
+public class Maquina1 {
+	
+	public void workLineaA () {
+		
+	}
+}

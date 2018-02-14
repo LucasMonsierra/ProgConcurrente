@@ -1,0 +1,24 @@
+package archivos;
+
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+public class Log {
+
+	Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	public Log() throws SecurityException, IOException {
+		Properties p = new Properties();
+		p.load(new FileInputStream(System.getProperty("user.home") + "\\Log\\"));
+        FileHandler fileTxt = new FileHandler("ExecutionLog.txt");
+        fileTxt.setFormatter(new SimpleFormatter());
+        logger.addHandler(fileTxt);
+	}
+
+	public Logger getLog() {
+		return logger;
+	}
+}

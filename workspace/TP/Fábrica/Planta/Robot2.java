@@ -1,53 +1,29 @@
 package Planta;
-import java.util.concurrent.TimeUnit;
+
+import java.util.logging.Logger;
 
 public class Robot2 {
 	
-	public void inputB () {
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	private final static Logger logger = Logger.getGlobal();
+	
+	public void tomarPiezaB () {
+		logger.info("Robot 2 toma pieza B del input para colocarla en Máquina 2.\n");
 	}
 	
-	public void trasB () {
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void sacarPiezaB () {
+		logger.info("Robot 2 toma pieza C de Máquina 2 para colocarla en output.\n");
 	}
 	
-	public void outputB () {
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void trasladarPiezaAalt1 () {
+		logger.info("Robot 2 toma pieza A de Máquina 1 para colocarla en Máquina 2.\n");
 	}
 	
-	public void trasAlt1 () {
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void trasAlt2 () {
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void trasladarPiezaAalt2 () {
+		logger.info("Robot 2 toma pieza A de Máquina 3 para colocarla en Máquina 4.\n");
 	}
 
-	public void trasC () {
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void trasladarPiezaC () {
+		logger.info("Robot 2 toma pieza C de Máquina 4 para colocarla en Máquina 3.\n");
 	}
+
 }

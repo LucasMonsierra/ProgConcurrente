@@ -3,6 +3,12 @@ package Planta;
 import java.io.IOException;
 
 import Gestor.GestorMonitor;
+import recursos.Maquina2;
+import recursos.Maquina3;
+import recursos.Maquina4;
+import recursos.Robot1;
+import recursos.Robot2;
+import recursos.Robot3;
 
 public class Main {
 

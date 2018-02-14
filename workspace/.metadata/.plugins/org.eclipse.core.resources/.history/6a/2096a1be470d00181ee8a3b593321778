@@ -1,0 +1,21 @@
+package recursos;
+
+import java.util.logging.Logger;
+
+public class Robot1 {
+	
+	private static Logger logger;
+	
+	public Robot1() {
+		logger = Logger.getGlobal();
+	}
+
+	public void tomarPiezaA () {
+		System.out.print("golas");
+		logger.info("Robot 1 toma pieza A del input.\n");
+	}
+
+	public void sacarPiezaC () {
+		logger.info("Robot 1 toma pieza C de Máquina 3 para colocarla en output.\n");
+	}
+}
