@@ -1,21 +1,16 @@
 package Planta;
-import java.util.concurrent.TimeUnit;
+
+import java.util.logging.Logger;
 
 public class Maquina3 {
 	
-	public void workLineaA () {
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	private final static Logger logger = Logger.getGlobal();
+
+	public void fabricarPiezaA () {
+		logger.info("Robot 1 coloca pieza A en Máquina 3. Fabicando pieza A.\n");
 	}
 	
-	public void workLineaC () {
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void fabricarPiezaC () {
+		logger.info("Máquina 3 fabicando pieza C.\n");
 	}
 }

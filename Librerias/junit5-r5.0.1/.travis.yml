@@ -1,0 +1,24 @@
+language: java
+sudo: false
+dist: trusty
+
+# Specify which branches/tags that we do not want to be built: r5.0.0-M5
+branches:
+  except:
+    - /^r\d.*$/
+
+env:
+  - _JAVA_OPTIONS='-Xmx500m'
+
+matrix:
+  include:
+    - jdk: oraclejdk8 # JDK 1.8.0_131-b11 or newer
+    - jdk: oraclejdk9 # JDK 9+175 or newer
+
+# Don't let Travis CI execute './gradlew assemble' by default
+install:
+# Display Gradle, Groovy, JVM and other versions
+  - ./gradlew -version
+
+script:
+  - ./gradlew build --scan --stacktrace
